@@ -19,7 +19,6 @@ export default function RootLayout({
   useEffect(() => {
     checkUser()
     
-    // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (event === 'SIGNED_IN') {
         checkUser()
@@ -55,11 +54,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased">
-        {/* Header */}
         <header className="bg-white shadow-sm sticky top-0 z-50">
           <nav className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-            <Link href="/" className="text-2xl font-bold text-blue-600">
-              OsteoJob
+            <Link href="/" className="flex items-center">
+              <img src="/logo.png" alt="OsteoJob" className="h-10" />
             </Link>
             
             <div className="hidden md:flex items-center gap-6">
@@ -167,10 +165,8 @@ export default function RootLayout({
           </nav>
         </header>
 
-        {/* Main Content */}
         {children}
 
-        {/* Footer */}
         <footer className="bg-gray-900 text-white py-12 px-4">
           <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
