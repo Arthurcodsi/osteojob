@@ -55,19 +55,19 @@ export default function RootLayout({
     <html lang="en">
       <body className="antialiased">
         <header className="bg-white shadow-sm sticky top-0 z-50">
-          <nav className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+          <nav className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
             <Link href="/" className="flex items-center">
               <img src="/logo.png" alt="OsteoJob" className="h-10" />
             </Link>
             
-            <div className="hidden md:flex items-center gap-6">
-              <Link href="/jobs" className="text-gray-700 hover:text-blue-600 font-medium transition">
+            <div className="hidden md:flex items-center gap-8">
+              <Link href="/jobs" className="text-gray-700 hover:text-blue-600 font-semibold text-lg transition">
                 Jobs
               </Link>
-              <Link href="/about" className="text-gray-700 hover:text-blue-600 font-medium transition">
+              <Link href="/about" className="text-gray-700 hover:text-blue-600 font-semibold text-lg transition">
                 About
               </Link>
-              <Link href="/contact" className="text-gray-700 hover:text-blue-600 font-medium transition">
+              <Link href="/contact" className="text-gray-700 hover:text-blue-600 font-semibold text-lg transition">
                 Contact
               </Link>
             </div>
