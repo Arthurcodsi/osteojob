@@ -40,6 +40,17 @@ export default async function JobDetailPage({
           ← Back to jobs
         </Link>
 
+        {/* Featured Image */}
+        {job.featured_image && (
+          <div className="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+            <img 
+              src={job.featured_image} 
+              alt={job.title}
+              className="w-full h-64 object-cover"
+            />
+          </div>
+        )}
+
         {/* Job Header */}
         <div className="bg-white rounded-xl shadow-sm p-8 mb-6">
           <div className="flex items-start gap-6 mb-6">
