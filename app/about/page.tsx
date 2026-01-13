@@ -131,7 +131,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
             <div className="text-center">
               <img 
-                src="https://osteojob.com/wp-content/uploads/2022/04/about-us-photo1.jpg" 
+                src="/about-us-photo1.jpg" 
                 alt="Morgan Grosset"
                 className="rounded-xl shadow-lg w-full max-w-sm mx-auto mb-4"
               />
@@ -141,7 +141,7 @@ export default function AboutPage() {
             
             <div className="text-center">
               <img 
-                src="https://osteojob.com/wp-content/uploads/2022/04/about-us-photo2.jpg" 
+                src="/about-us-photo2.jpg" 
                 alt="Arthur Codsi"
                 className="rounded-xl shadow-lg w-full max-w-sm mx-auto mb-4"
               />
@@ -180,17 +180,17 @@ export default function AboutPage() {
         <h2 className="text-3xl font-bold text-center mb-12">They Trust Us</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-8 items-center justify-items-center">
           <img 
-            src="https://osteojob.com/wp-content/uploads/2022/04/OsteoHustle-logo.png" 
+            src="/OsteoHustle-logo.png" 
             alt="OsteoHustle"
             className="h-16 object-contain grayscale hover:grayscale-0 transition"
           />
           <img 
-            src="https://osteojob.com/wp-content/uploads/2022/04/OsteoAllies-logo.png" 
+            src="/OsteoAllies-logo.png" 
             alt="OsteoAllies"
             className="h-16 object-contain grayscale hover:grayscale-0 transition"
           />
           <img 
-            src="https://osteojob.com/wp-content/uploads/2022/04/Atman-logo.png" 
+            src="/Atman-logo.png" 
             alt="Atman"
             className="h-16 object-contain grayscale hover:grayscale-0 transition"
           />
