@@ -15,6 +15,7 @@ export default function RootLayout({
   const [user, setUser] = useState<any>(null)
   const [profile, setProfile] = useState<any>(null)
   const [showUserMenu, setShowUserMenu] = useState(false)
+  const [showMobileMenu, setShowMobileMenu] = useState(false)
 
   useEffect(() => {
     checkUser()
@@ -73,6 +74,20 @@ export default function RootLayout({
             </div>
 
             <div className="flex items-center gap-3">
+              {/* Mobile Menu Button */}
+              <button
+                onClick={() => setShowMobileMenu(!showMobileMenu)}
+                className="md:hidden p-2 text-gray-700 hover:text-blue-600"
+                aria-label="Toggle menu"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  {showMobileMenu ? (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  ) : (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  )}
+                </svg>
+              </button>
               {user ? (
                 <div className="relative">
                   <button
@@ -163,6 +178,35 @@ export default function RootLayout({
               )}
             </div>
           </nav>
+
+          {/* Mobile Menu */}
+          {showMobileMenu && (
+            <div className="md:hidden border-t border-gray-200 bg-white">
+              <div className="px-6 py-4 space-y-3">
+                <Link
+                  href="/jobs"
+                  className="block text-gray-700 hover:text-blue-600 font-semibold text-lg transition py-2"
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  Jobs
+                </Link>
+                <Link
+                  href="/about"
+                  className="block text-gray-700 hover:text-blue-600 font-semibold text-lg transition py-2"
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  About
+                </Link>
+                <Link
+                  href="/contact"
+                  className="block text-gray-700 hover:text-blue-600 font-semibold text-lg transition py-2"
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  Contact
+                </Link>
+              </div>
+            </div>
+          )}
         </header>
 
         {children}
