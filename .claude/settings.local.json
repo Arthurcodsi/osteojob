@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npm run test:db:*)"
+      "Bash(npm run test:db:*)",
+      "Bash(node -e:*)"
     ]
   }
 }

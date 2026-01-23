@@ -2,6 +2,14 @@
 
 This directory contains utility scripts for managing data migrations to Supabase.
 
+## Scripts Overview
+
+1. **bulk-upload-users.js** - Bulk upload users from WordPress export
+2. **update-job-posters.js** - Update employer_id for all jobs
+3. **test-connection.js** - Test Supabase database connection
+
+---
+
 ## User Upload Script
 
 ### bulk-upload-users.js
@@ -102,3 +110,135 @@ Total users:     2501
 
 **File not found:**
 - Ensure `osteojob-users.json` exists in the project root directory
+
+---
+
+## Job Poster Update Script
+
+### update-job-posters.js
+
+Updates the `employer_id` field for all jobs in Supabase using the correct poster IDs from `osteojob-jobs.json`.
+
+#### Features
+
+- **Job Matching**: Matches jobs by their WordPress ID
+- **Employer ID Resolution**: Maps WordPress user IDs to Supabase UUIDs
+- **Progress Tracking**: Shows real-time update progress per job
+- **Batch Processing**: Updates jobs in batches of 50
+- **Error Handling**: Tracks jobs not found or failed updates
+- **Statistics**: Detailed summary of updated/skipped/failed records
+
+#### Prerequisites
+
+1. Ensure `.env.local` file exists with Supabase credentials
+2. Ensure `osteojob-jobs.json` exists in the project root
+3. **Important**: Users must be uploaded first using `upload:users` script
+4. Jobs must exist in the database (imported beforehand)
+
+#### Usage
+
+Run the script using npm:
+
+```bash
+npm run update:job-posters
+```
+
+Or directly with node:
+
+```bash
+node scripts/update-job-posters.js
+```
+
+#### How It Works
+
+1. **Reads** `osteojob-jobs.json` (244 jobs)
+2. **Extracts** employer ID from each job:
+   - First tries `meta._job_employer_posted_by`
+   - Falls back to `author_id`
+3. **Generates** employer UUID using same logic as user upload
+4. **Matches** jobs by generating UUID from WordPress job ID
+5. **Updates** only the `employer_id` field for each matched job
+
+#### Employer ID Resolution
+
+The script determines the employer (poster) in this order:
+
+1. `meta._job_employer_posted_by` (WordPress job board plugin field)
+2. `author_id` (WordPress post author)
+
+Then converts WordPress user ID to UUID:
+```javascript
+// Same UUID generation as user upload
+UUID = v5(`wp-user-{wordpress_user_id}`, NAMESPACE)
+```
+
+#### Output
+
+```
+🚀 Starting job poster ID updates...
+
+📖 Reading jobs from osteojob-jobs.json...
+✓ Found 244 jobs
+
+📊 Jobs with employer info: 240
+⚠️  Jobs without employer info: 4
+
+📦 Processing 5 batches of up to 50 jobs each...
+
+📦 Processing Batch 1/5 (50 jobs)...
+  ✅ Updated job #14340: "Associate Osteopath"
+  ✅ Updated job #13749: "Associate osteopath"
+  ...
+  📊 Progress: 20% (50/240)
+
+...
+
+============================================================
+📈 Update Summary
+============================================================
+Total jobs in file:    244
+✅ Updated:            235
+⚠️  Not found in DB:    5
+⚠️  Skipped (no emp):   4
+❌ Errors:             0
+⏱️  Duration:           8.50s
+============================================================
+
+✅ Update completed successfully!
+```
+
+#### Job Matching Strategy
+
+The script generates a deterministic UUID for each WordPress job:
+- **Pattern**: `wp-job-{wordpress_job_id}`
+- **Namespace**: Same as user UUID namespace
+- **Result**: Consistent job UUIDs across runs
+
+**Note**: This assumes jobs were imported with the same UUID generation logic. If jobs were imported differently, the matching strategy may need adjustment.
+
+#### Troubleshooting
+
+**"Jobs not found in database":**
+- Jobs must be imported to Supabase before updating poster IDs
+- Verify jobs exist: Check Supabase dashboard → jobs table
+- Ensure job import used the same UUID generation pattern
+
+**"No employer ID found":**
+- Some jobs may not have employer information in WordPress data
+- These jobs are skipped and counted in the summary
+
+**"All jobs show as not found":**
+- Jobs might have been imported with different IDs
+- Check the UUID generation pattern used during job import
+- May need to modify the `findJobByWpId()` function to match your import logic
+
+**Permission errors:**
+- Use `SUPABASE_SERVICE_ROLE_KEY` for full update permissions
+- Ensure the Supabase user has UPDATE permissions on the `jobs` table
+
+#### Important Notes
+
+- **Order matters**: Run `upload:users` before this script
+- **Safe to re-run**: Updates are idempotent (same result each time)
+- **Only updates employer_id**: Other job fields remain unchanged
+- **Batch processing**: 50 jobs per batch with 100ms delay between batches
