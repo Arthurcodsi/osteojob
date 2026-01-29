@@ -11,27 +11,84 @@ function ResetPasswordForm() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [tokenValid, setTokenValid] = useState<boolean | null>(null)
+  const [debugInfo, setDebugInfo] = useState<string>('')
 
   useEffect(() => {
-    // Check if we have a valid session (user clicked the reset link)
-    const checkSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession()
-
-      if (session) {
-        setTokenValid(true)
-      } else {
-        // Check if there's an error in the URL (token expired/invalid)
+    // Handle the password recovery flow
+    const handlePasswordRecovery = async () => {
+      try {
+        // Check for error in URL params first
         const errorDescription = searchParams.get('error_description')
-        if (errorDescription) {
-          setError(errorDescription)
+        const errorCode = searchParams.get('error_code')
+
+        if (errorDescription || errorCode) {
+          setDebugInfo(`Error in URL: ${errorDescription || errorCode}`)
+          setError(errorDescription || 'Invalid or expired reset link')
           setTokenValid(false)
+          return
+        }
+
+        // Check if we have hash fragments (access_token, refresh_token, etc.)
+        // Supabase sends these in the URL hash after clicking the email link
+        const hashParams = new URLSearchParams(window.location.hash.substring(1))
+        const accessToken = hashParams.get('access_token')
+        const refreshToken = hashParams.get('refresh_token')
+        const type = hashParams.get('type')
+
+        setDebugInfo(`Hash params - type: ${type}, has access_token: ${!!accessToken}, has refresh_token: ${!!refreshToken}`)
+
+        // If we have an access token and it's a recovery type, set the session
+        if (accessToken && type === 'recovery') {
+          console.log('Setting session with recovery token...')
+
+          const { data, error: sessionError } = await supabase.auth.setSession({
+            access_token: accessToken,
+            refresh_token: refreshToken || '',
+          })
+
+          if (sessionError) {
+            console.error('Session error:', sessionError)
+            setError(`Failed to validate reset token: ${sessionError.message}`)
+            setTokenValid(false)
+            return
+          }
+
+          if (data.session) {
+            console.log('Session established successfully')
+            setTokenValid(true)
+          } else {
+            setError('Failed to establish session')
+            setTokenValid(false)
+          }
+          return
+        }
+
+        // Check if we already have a valid session (e.g., user refreshed the page)
+        const { data: { session }, error: sessionCheckError } = await supabase.auth.getSession()
+
+        if (sessionCheckError) {
+          console.error('Session check error:', sessionCheckError)
+          setError(`Session validation failed: ${sessionCheckError.message}`)
+          setTokenValid(false)
+          return
+        }
+
+        if (session) {
+          console.log('Valid session found')
+          setTokenValid(true)
         } else {
+          console.log('No valid session or token found')
+          setError('No valid reset token found. Please request a new password reset link.')
           setTokenValid(false)
         }
+      } catch (err: any) {
+        console.error('Unexpected error in handlePasswordRecovery:', err)
+        setError(`Unexpected error: ${err.message}`)
+        setTokenValid(false)
       }
     }
 
-    checkSession()
+    handlePasswordRecovery()
   }, [searchParams])
 
   const handlePasswordReset = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -104,6 +161,9 @@ function ResetPasswordForm() {
               <p className="text-sm text-red-600">
                 {error || 'This password reset link is invalid or has expired. Please request a new one.'}
               </p>
+              {debugInfo && (
+                <p className="text-xs text-gray-500 mt-2 font-mono">{debugInfo}</p>
+              )}
             </div>
 
             <div className="space-y-3">
