@@ -39,21 +39,17 @@ export default function SignupPage() {
       if (authError) throw authError
 
       if (authData.user) {
-        // 2. Create profile
-        const { error: profileError } = await supabase
-          .from('profiles')
-          .insert({
-            id: authData.user.id,
-            email: email,
-            full_name: fullName,
-            user_type: userType,
-            company_name: userType === 'employer' ? companyName : null,
-          })
-
-        if (profileError) throw profileError
+        // Profile is created/linked automatically by Supabase trigger.
+        // Just update company_name for employers if provided.
+        if (userType === 'employer' && companyName) {
+          await supabase
+            .from('profiles')
+            .update({ company_name: companyName, full_name: fullName })
+            .eq('id', authData.user.id)
+        }
 
         setSuccess(true)
-        
+
         // Redirect after 2 seconds
         setTimeout(() => {
           router.push('/dashboard')

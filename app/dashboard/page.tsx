@@ -70,6 +70,19 @@ export default function DashboardPage() {
     router.push('/')
   }
 
+  const handleDeleteJob = async (jobId: string) => {
+    if (!confirm('Are you sure you want to delete this job? This cannot be undone.')) return
+
+    const { error } = await supabase
+      .from('jobs')
+      .delete()
+      .eq('id', jobId)
+
+    if (!error) {
+      setJobs((prev) => prev.filter((j) => j.id !== jobId))
+    }
+  }
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -177,6 +190,12 @@ export default function DashboardPage() {
                           >
                             View
                           </Link>
+                          <button
+                            onClick={() => handleDeleteJob(job.id)}
+                            className="px-4 py-2 border-2 border-red-200 text-red-600 rounded-lg text-sm font-semibold hover:bg-red-50 hover:border-red-400 transition"
+                          >
+                            Delete
+                          </button>
                         </div>
                       </div>
                     </div>
