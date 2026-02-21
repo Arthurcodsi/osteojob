@@ -15,6 +15,7 @@ export default function ApplyPage({ params }: { params: Promise<{ id: string }> 
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
   const [user, setUser] = useState<any>(null)
+  const [cvFile, setCvFile] = useState<File | null>(null)
 
   useEffect(() => {
     const init = async () => {
@@ -61,6 +62,26 @@ export default function ApplyPage({ params }: { params: Promise<{ id: string }> 
     const formData = new FormData(e.currentTarget)
     
     try {
+      let cvUrl: string | null = null
+
+      // Upload CV if provided
+      if (cvFile) {
+        const fileExt = cvFile.name.split('.').pop()
+        const fileName = `${user.id}-${Date.now()}.${fileExt}`
+
+        const { error: uploadError } = await supabase.storage
+          .from('cvs')
+          .upload(fileName, cvFile)
+
+        if (uploadError) throw new Error(`CV upload failed: ${uploadError.message}`)
+
+        const { data: { publicUrl } } = supabase.storage
+          .from('cvs')
+          .getPublicUrl(fileName)
+
+        cvUrl = publicUrl
+      }
+
       const { error: insertError } = await supabase
         .from('applications')
         .insert({
@@ -70,6 +91,7 @@ export default function ApplyPage({ params }: { params: Promise<{ id: string }> 
           applicant_email: formData.get('email') as string,
           applicant_phone: formData.get('phone') as string,
           cover_letter: formData.get('coverLetter') as string,
+          cv_url: cvUrl,
           status: 'pending'
         })
 
@@ -202,6 +224,22 @@ export default function ApplyPage({ params }: { params: Promise<{ id: string }> 
                 className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
                 placeholder="+44 123 456 7890"
               />
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                CV / Resume *
+              </label>
+              <input
+                type="file"
+                accept=".pdf,.doc,.docx"
+                required
+                onChange={(e) => setCvFile(e.target.files?.[0] || null)}
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 file:mr-4 file:py-1 file:px-4 file:rounded file:border-0 file:bg-blue-50 file:text-blue-600 file:font-semibold hover:file:bg-blue-100"
+              />
+              <p className="text-sm text-gray-500 mt-1">
+                PDF, DOC or DOCX — max 5MB
+              </p>
             </div>
 
             <div>
