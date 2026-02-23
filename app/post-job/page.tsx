@@ -14,6 +14,7 @@ export default function PostJobPage() {
   const [profile, setProfile] = useState<any>(null)
   const [imageFile, setImageFile] = useState<File | null>(null)
   const [imagePreview, setImagePreview] = useState<string>('')
+  const [authStatus, setAuthStatus] = useState<'ok' | 'not-logged-in' | 'not-employer'>('ok')
 
   useEffect(() => {
     checkUser()
@@ -22,9 +23,10 @@ export default function PostJobPage() {
   const checkUser = async () => {
     try {
       const { data: { user: authUser } } = await supabase.auth.getUser()
-      
+
       if (!authUser) {
-        router.push('/auth/login?redirect=/post-job')
+        setAuthStatus('not-logged-in')
+        setLoading(false)
         return
       }
 
@@ -35,7 +37,8 @@ export default function PostJobPage() {
         .single()
 
       if (profileData?.user_type !== 'employer') {
-        router.push('/dashboard')
+        setAuthStatus('not-employer')
+        setLoading(false)
         return
       }
 
@@ -43,7 +46,7 @@ export default function PostJobPage() {
       setProfile(profileData)
     } catch (err) {
       console.error('Error:', err)
-      router.push('/auth/login')
+      setAuthStatus('not-logged-in')
     } finally {
       setLoading(false)
     }
@@ -126,6 +129,62 @@ export default function PostJobPage() {
         <div className="text-center">
           <div className="text-4xl mb-4">⏳</div>
           <p className="text-gray-600">Loading...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (authStatus === 'not-logged-in') {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+        <div className="bg-white rounded-xl shadow-lg p-10 max-w-md w-full text-center">
+          <div className="text-5xl mb-4">🔒</div>
+          <h2 className="text-2xl font-bold mb-2">Sign in required</h2>
+          <p className="text-gray-600 mb-6">
+            You need to be signed in as an employer to post a job.
+          </p>
+          <div className="flex flex-col gap-3">
+            <Link
+              href="/auth/login?redirect=/post-job"
+              className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
+            >
+              Log in
+            </Link>
+            <Link
+              href="/auth/signup?type=employer"
+              className="border-2 border-blue-600 text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 transition"
+            >
+              Create an employer account
+            </Link>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (authStatus === 'not-employer') {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+        <div className="bg-white rounded-xl shadow-lg p-10 max-w-md w-full text-center">
+          <div className="text-5xl mb-4">🏢</div>
+          <h2 className="text-2xl font-bold mb-2">Employer account required</h2>
+          <p className="text-gray-600 mb-6">
+            You are currently signed in as a candidate. Posting jobs requires an employer account.
+          </p>
+          <div className="flex flex-col gap-3">
+            <Link
+              href="/auth/signup?type=employer"
+              className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
+            >
+              Create an employer account
+            </Link>
+            <Link
+              href="/dashboard"
+              className="text-gray-500 hover:text-gray-700 text-sm transition"
+            >
+              Back to my dashboard
+            </Link>
+          </div>
         </div>
       </div>
     )

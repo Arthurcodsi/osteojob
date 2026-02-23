@@ -71,6 +71,9 @@ export default function RootLayout({
               <Link href="/contact" className="text-gray-700 hover:text-blue-600 font-semibold text-lg transition">
                 Contact
               </Link>
+              <Link href="/post-job" className="bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700 transition text-base">
+                Post a Job
+              </Link>
             </div>
 
             <div className="flex items-center gap-3">
@@ -211,6 +214,13 @@ export default function RootLayout({
                   onClick={() => setShowMobileMenu(false)}
                 >
                   Contact
+                </Link>
+                <Link
+                  href="/post-job"
+                  className="block bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700 transition text-center"
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  Post a Job
                 </Link>
               </div>
             </div>
