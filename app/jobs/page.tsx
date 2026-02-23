@@ -97,8 +97,12 @@ export default async function JobsPage({
               >
                 <div className="flex items-start justify-between">
                   <div className="flex gap-4 flex-1">
-                    <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center font-bold text-blue-600 flex-shrink-0">
-                      {job.employer?.company_name?.substring(0, 2).toUpperCase() || 'CO'}
+                    <div className="w-16 h-16 bg-gray-100 rounded-lg flex-shrink-0 overflow-hidden flex items-center justify-center font-bold text-blue-600">
+                      {job.featured_image ? (
+                        <img src={job.featured_image} alt={job.title} className="w-full h-full object-cover" />
+                      ) : (
+                        job.employer?.company_name?.substring(0, 2).toUpperCase() || 'CO'
+                      )}
                     </div>
 
                     <div className="flex-1">
