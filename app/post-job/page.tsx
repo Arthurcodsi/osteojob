@@ -66,6 +66,21 @@ export default function PostJobPage() {
     }
   }
 
+  const fetchCityImage = async (city: string, country: string): Promise<string | null> => {
+    const query = city || country
+    if (!query) return null
+    try {
+      const res = await fetch(
+        `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(query)}`
+      )
+      if (!res.ok) return null
+      const data = await res.json()
+      return data.thumbnail?.source || data.originalimage?.source || null
+    } catch {
+      return null
+    }
+  }
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setSubmitting(true)
@@ -80,7 +95,7 @@ export default function PostJobPage() {
       if (imageFile) {
         const fileExt = imageFile.name.split('.').pop()
         const fileName = `${user.id}-${Date.now()}.${fileExt}`
-        
+
         const { error: uploadError } = await supabase.storage
           .from('job-images')
           .upload(fileName, imageFile)
@@ -93,6 +108,11 @@ export default function PostJobPage() {
           .getPublicUrl(fileName)
 
         imageUrl = publicUrl
+      } else {
+        // Fall back to a Wikipedia city photo
+        const city = formData.get('city') as string
+        const country = formData.get('country') as string
+        imageUrl = await fetchCityImage(city, country)
       }
 
       // Insert job

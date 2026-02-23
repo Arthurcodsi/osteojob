@@ -46,6 +46,23 @@ Runs on http://localhost:3000
 - `app/layout.tsx` — Root layout with header/nav/footer and account menu
 - `lib/supabase.ts` — Supabase client and TypeScript types
 
+## One-Time Scripts
+
+### Backfill city images for existing jobs
+Fetches a Wikipedia photo for each job that has no `featured_image`. Uses the city name, falls back to country.
+Requires the Supabase service role key (Supabase → Project Settings → API → service_role secret).
+
+```bash
+# 1. Paste service_role key into scripts/backfill-city-images.mjs
+# 2. Run:
+node scripts/backfill-city-images.mjs
+# 3. Remove the key from the script afterwards
+```
+
+Already run once on 2026-02-23 — updated ~160 of 243 jobs.
+
+---
+
 ## Migration Plan (WordPress → Supabase)
 
 Existing employers are in the `profiles` table (imported from WordPress) with jobs already linked.
