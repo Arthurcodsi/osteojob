@@ -45,3 +45,27 @@ Runs on http://localhost:3000
 ## Key Files
 - `app/layout.tsx` — Root layout with header/nav/footer and account menu
 - `lib/supabase.ts` — Supabase client and TypeScript types
+
+## Migration Plan (WordPress → Supabase)
+
+Existing employers are in the `profiles` table (imported from WordPress) with jobs already linked.
+`auth.users` will be wiped clean before launch. Profiles and jobs must be kept intact.
+
+### How re-linking works
+A Supabase trigger (`on_auth_user_created`) fires when a new auth user is created.
+It matches the signup email to an existing profile, updates `profiles.id` to the new auth UUID,
+and `jobs.employer_id` CASCADE UPDATEs automatically — so all their jobs reappear in the dashboard.
+
+### TODO at launch: bulk invite script (Option 2)
+Use the Supabase Admin API to send each employer a magic invite link.
+They click it, set a password, and land straight in their dashboard with all jobs intact.
+
+```ts
+// Run once per employer email in the profiles table
+const { data, error } = await supabase.auth.admin.inviteUserByEmail('employer@example.com')
+```
+
+Steps:
+1. Fetch all employer emails from `profiles` where `user_type = 'employer'`
+2. Call `inviteUserByEmail` for each one
+3. Supabase sends a magic link — one click and they're in with all jobs linked
