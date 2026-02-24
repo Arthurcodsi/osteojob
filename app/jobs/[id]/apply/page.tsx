@@ -97,8 +97,22 @@ export default function ApplyPage({ params }: { params: Promise<{ id: string }> 
 
       if (insertError) throw insertError
 
+      // Fire-and-forget email notification to employer
+      fetch('/api/notify-application', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          jobId,
+          applicantName: formData.get('name'),
+          applicantEmail: formData.get('email'),
+          applicantPhone: formData.get('phone'),
+          coverLetter: formData.get('coverLetter'),
+          cvUrl,
+        }),
+      }).catch(() => {}) // never block the user if email fails
+
       setSuccess(true)
-      
+
       // Redirect to dashboard after 3 seconds
       setTimeout(() => {
         router.push('/dashboard')
