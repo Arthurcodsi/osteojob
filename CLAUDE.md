@@ -63,6 +63,37 @@ Already run once on 2026-02-23 — updated ~160 of 243 jobs.
 
 ---
 
+## TODO at Launch: Email Setup
+
+Currently using **Gmail SMTP** for testing. Switch to **Zoho Mail** at launch.
+
+### 1. Set up Zoho Mail
+- Create a Zoho Mail account at zoho.com/mail
+- Add your domain (`osteojob.com`) and verify it via DNS records in SiteGround
+- Create a mailbox e.g. `hello@osteojob.com`
+- Generate an App Password in Zoho (My Account → Security → App Passwords)
+
+### 2. Update `.env.local` and Vercel environment variables
+```
+ZOHO_SMTP_HOST=smtp.zoho.eu
+ZOHO_SMTP_USER=hello@osteojob.com
+ZOHO_SMTP_PASS=your_zoho_app_password
+```
+In Vercel → Project Settings → Environment Variables, update all three.
+
+### 3. Update the email template logo URL
+In `app/api/notify-application/route.ts` line 68, change:
+```
+https://osteojob-eight.vercel.app/logo.png
+→
+https://osteojob.com/logo.png
+```
+
+### 4. Update the email template dashboard link
+Already set to `https://osteojob.com/dashboard` — nothing to change.
+
+---
+
 ## Migration Plan (WordPress → Supabase)
 
 Existing employers are in the `profiles` table (imported from WordPress) with jobs already linked.
