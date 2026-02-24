@@ -58,20 +58,20 @@ export default function RootLayout({
         <header className="bg-white shadow-sm sticky top-0 z-50">
           <nav className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
             <Link href="/" className="flex items-center">
-              <img src="/logo.png" alt="OsteoJob" className="h-10" />
+              <img src="/logo.png" alt="OsteoJob" className="h-14" />
             </Link>
             
             <div className="hidden md:flex items-center gap-8">
-              <Link href="/jobs" className="text-gray-700 hover:text-blue-600 font-semibold text-lg transition">
+              <Link href="/jobs" className="text-gray-700 hover:text-[#4b8ec2] font-semibold text-lg transition">
                 Jobs
               </Link>
-              <Link href="/about" className="text-gray-700 hover:text-blue-600 font-semibold text-lg transition">
+              <Link href="/about" className="text-gray-700 hover:text-[#4b8ec2] font-semibold text-lg transition">
                 About
               </Link>
-              <Link href="/contact" className="text-gray-700 hover:text-blue-600 font-semibold text-lg transition">
+              <Link href="/contact" className="text-gray-700 hover:text-[#4b8ec2] font-semibold text-lg transition">
                 Contact
               </Link>
-              <Link href="/post-job" className="bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700 transition text-base">
+              <Link href="/post-job" className="bg-[#32487A] text-white px-4 py-2 rounded-full font-semibold hover:bg-[#4b8ec2] transition text-base">
                 Post a Job
               </Link>
             </div>
@@ -80,7 +80,7 @@ export default function RootLayout({
               {/* Mobile Menu Button */}
               <button
                 onClick={() => setShowMobileMenu(!showMobileMenu)}
-                className="md:hidden p-2 text-gray-700 hover:text-blue-600"
+                className="md:hidden p-2 text-gray-700 hover:text-[#4b8ec2]"
                 aria-label="Toggle menu"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -97,7 +97,7 @@ export default function RootLayout({
                     onClick={() => setShowUserMenu(!showUserMenu)}
                     className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-gray-100 transition"
                   >
-                    <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-semibold">
+                    <div className="w-8 h-8 bg-[#32487A] text-white rounded-full flex items-center justify-center font-semibold">
                       {profile?.full_name?.[0]?.toUpperCase() || user.email?.[0]?.toUpperCase()}
                     </div>
                     <span className="font-medium text-gray-700 hidden sm:block">
@@ -120,7 +120,7 @@ export default function RootLayout({
                             {profile?.full_name}
                           </p>
                           <p className="text-xs text-gray-500">{user.email}</p>
-                          <p className="text-xs text-blue-600 mt-1 capitalize">
+                          <p className="text-xs text-[#4b8ec2] mt-1 capitalize">
                             {profile?.user_type} Account
                           </p>
                         </div>
@@ -175,13 +175,13 @@ export default function RootLayout({
                 <>
                   <Link
                     href="/auth/login"
-                    className="text-gray-700 hover:text-blue-600 font-medium transition"
+                    className="text-gray-700 hover:text-[#4b8ec2] font-medium transition"
                   >
                     Login
                   </Link>
                   <Link
                     href="/auth/signup"
-                    className="bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700 transition"
+                    className="bg-[#32487A] text-white px-4 py-2 rounded-full font-semibold hover:bg-[#4b8ec2] transition"
                   >
                     Sign Up
                   </Link>
@@ -196,28 +196,28 @@ export default function RootLayout({
               <div className="px-6 py-4 space-y-3">
                 <Link
                   href="/jobs"
-                  className="block text-gray-700 hover:text-blue-600 font-semibold text-lg transition py-2"
+                  className="block text-gray-700 hover:text-[#4b8ec2] font-semibold text-lg transition py-2"
                   onClick={() => setShowMobileMenu(false)}
                 >
                   Jobs
                 </Link>
                 <Link
                   href="/about"
-                  className="block text-gray-700 hover:text-blue-600 font-semibold text-lg transition py-2"
+                  className="block text-gray-700 hover:text-[#4b8ec2] font-semibold text-lg transition py-2"
                   onClick={() => setShowMobileMenu(false)}
                 >
                   About
                 </Link>
                 <Link
                   href="/contact"
-                  className="block text-gray-700 hover:text-blue-600 font-semibold text-lg transition py-2"
+                  className="block text-gray-700 hover:text-[#4b8ec2] font-semibold text-lg transition py-2"
                   onClick={() => setShowMobileMenu(false)}
                 >
                   Contact
                 </Link>
                 <Link
                   href="/post-job"
-                  className="block bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700 transition text-center"
+                  className="block bg-[#32487A] text-white px-4 py-2 rounded-full font-semibold hover:bg-[#4b8ec2] transition text-center"
                   onClick={() => setShowMobileMenu(false)}
                 >
                   Post a Job

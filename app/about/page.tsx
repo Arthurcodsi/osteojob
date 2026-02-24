@@ -1,10 +1,10 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#f0f6ff]">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-600 to-blue-800 text-white py-20 px-4">
+      <section className="text-white py-20 px-4" style={{ background: 'linear-gradient(135deg, #2d436f 0%, #3a5a9b 100%)' }}>
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-5xl font-bold mb-4">About OsteoJob</h1>
           <p className="text-xl opacity-95">
@@ -32,10 +32,10 @@ export default function AboutPage() {
               in the osteopathic community.
             </p>
           </div>
-          <div className="bg-white rounded-xl shadow-lg p-8">
+          <div className="bg-white rounded-[25px] shadow-lg p-8">
             <div className="space-y-6">
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 bg-[#dce8f5] rounded-lg flex items-center justify-center flex-shrink-0">
                   <span className="text-2xl">🌍</span>
                 </div>
                 <div>
@@ -44,7 +44,7 @@ export default function AboutPage() {
                 </div>
               </div>
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 bg-[#dce8f5] rounded-lg flex items-center justify-center flex-shrink-0">
                   <span className="text-2xl">💼</span>
                 </div>
                 <div>
@@ -53,7 +53,7 @@ export default function AboutPage() {
                 </div>
               </div>
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 bg-[#dce8f5] rounded-lg flex items-center justify-center flex-shrink-0">
                   <span className="text-2xl">🤝</span>
                 </div>
                 <div>
@@ -67,25 +67,25 @@ export default function AboutPage() {
       </section>
 
       {/* Stats Section */}
-      <section className="bg-blue-600 text-white py-16 px-4">
+      <section className="bg-[#32487A] text-white py-16 px-4">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12">OsteoJob by the Numbers</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div className="text-center">
               <div className="text-5xl font-bold mb-2">5,000+</div>
-              <div className="text-blue-100">Registered Professionals</div>
+              <div className="text-blue-200">Registered Professionals</div>
             </div>
             <div className="text-center">
               <div className="text-5xl font-bold mb-2">2,500+</div>
-              <div className="text-blue-100">Job Postings</div>
+              <div className="text-blue-200">Job Postings</div>
             </div>
             <div className="text-center">
               <div className="text-5xl font-bold mb-2">25+</div>
-              <div className="text-blue-100">Countries</div>
+              <div className="text-blue-200">Countries</div>
             </div>
             <div className="text-center">
               <div className="text-5xl font-bold mb-2">98%</div>
-              <div className="text-blue-100">Success Rate</div>
+              <div className="text-blue-200">Success Rate</div>
             </div>
           </div>
         </div>
@@ -95,7 +95,7 @@ export default function AboutPage() {
       <section className="max-w-6xl mx-auto px-4 py-16">
         <h2 className="text-3xl font-bold text-center mb-12">Our Values</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="bg-white rounded-xl shadow-sm p-8 text-center">
+          <div className="bg-white rounded-[25px] shadow-sm p-8 text-center">
             <div className="text-5xl mb-4">🎯</div>
             <h3 className="text-xl font-semibold mb-3">Quality</h3>
             <p className="text-gray-600">
@@ -103,7 +103,7 @@ export default function AboutPage() {
               the best matches for everyone.
             </p>
           </div>
-          <div className="bg-white rounded-xl shadow-sm p-8 text-center">
+          <div className="bg-white rounded-[25px] shadow-sm p-8 text-center">
             <div className="text-5xl mb-4">💙</div>
             <h3 className="text-xl font-semibold mb-3">Community</h3>
             <p className="text-gray-600">
@@ -111,7 +111,7 @@ export default function AboutPage() {
               better career opportunities.
             </p>
           </div>
-          <div className="bg-white rounded-xl shadow-sm p-8 text-center">
+          <div className="bg-white rounded-[25px] shadow-sm p-8 text-center">
             <div className="text-5xl mb-4">🚀</div>
             <h3 className="text-xl font-semibold mb-3">Innovation</h3>
             <p className="text-gray-600">
@@ -123,7 +123,7 @@ export default function AboutPage() {
       </section>
 
       {/* Founders Section */}
-      <section className="bg-gray-100 py-16 px-4">
+      <section className="py-16 px-4" style={{ background: '#f0f6ff' }}>
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12">Meet Our Co-Founders</h2>
           
@@ -133,27 +133,27 @@ export default function AboutPage() {
               <img 
                 src="/about-us-photo1.jpg" 
                 alt="Morgan Grosset"
-                className="rounded-xl shadow-lg w-full max-w-sm mx-auto mb-4"
+                className="rounded-[25px] shadow-lg w-full max-w-sm mx-auto mb-4"
               />
               <h3 className="text-xl font-bold">Morgan GROSSET</h3>
-              <p className="text-blue-600 font-semibold">Co-Founder</p>
+              <p className="text-[#32487A] font-semibold">Co-Founder</p>
             </div>
             
             <div className="text-center">
               <img 
                 src="/about-us-photo2.jpg" 
                 alt="Arthur Codsi"
-                className="rounded-xl shadow-lg w-full max-w-sm mx-auto mb-4"
+                className="rounded-[25px] shadow-lg w-full max-w-sm mx-auto mb-4"
               />
               <h3 className="text-xl font-bold">Arthur CODSI</h3>
-              <p className="text-blue-600 font-semibold">Osteopath & Co-Founder</p>
+              <p className="text-[#32487A] font-semibold">Osteopath & Co-Founder</p>
             </div>
           </div>
           
           {/* Quote and Mission */}
           <div className="max-w-4xl mx-auto space-y-6">
-            <div className="bg-white rounded-xl shadow-sm p-8">
-              <blockquote className="text-lg text-gray-700 italic border-l-4 border-blue-600 pl-6">
+            <div className="bg-white rounded-[25px] shadow-sm p-8">
+              <blockquote className="text-lg text-gray-700 italic border-l-4 border-[#32487A] pl-6">
                 "Our mission is to offer a brand-new tool for the world-wide osteopathic community. 
                 Here you will be able to access everything with simplicity inside a single platform, 
                 in one click. OSTEOJOB is our solution for you."
@@ -161,7 +161,7 @@ export default function AboutPage() {
               <p className="text-right text-gray-600 mt-4 font-semibold">- Morgan GROSSET</p>
             </div>
             
-            <div className="bg-blue-50 rounded-lg p-8">
+            <div className="bg-[#F5F7FC] rounded-lg p-8">
               <h4 className="font-semibold text-xl mb-4">Who We Are</h4>
               <p className="text-gray-700 mb-4">
                 OSTEOJOB is the new osteopathic hub, combining everything that the profession needs.
@@ -207,13 +207,13 @@ export default function AboutPage() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link
             href="/jobs"
-            className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
+            className="bg-[#32487A] text-white px-8 py-3 rounded-full font-semibold hover:bg-[#4b8ec2] transition"
           >
             Browse Jobs
           </Link>
           <Link
             href="/auth/signup"
-            className="border-2 border-blue-600 text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition"
+            className="border-2 border-[#32487A] text-[#32487A] px-8 py-3 rounded-full font-semibold hover:bg-[#F5F7FC] transition"
           >
             Sign Up Today
           </Link>

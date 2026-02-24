@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState } from 'react'
 import { supabase } from '@/lib/supabase'
@@ -34,12 +34,10 @@ export default function ForgotPasswordPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4">
+    <div className="min-h-screen bg-[#f0f6ff] flex items-center justify-center py-12 px-4">
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
-          <Link href="/" className="text-3xl font-bold text-blue-600">
-            OsteoJob
-          </Link>
+          <Link href="/"><img src="/logo.png" alt="OsteoJob" className="h-12 mx-auto" /></Link>
           <h2 className="mt-6 text-3xl font-bold text-gray-900">
             Reset your password
           </h2>
@@ -48,7 +46,7 @@ export default function ForgotPasswordPage() {
           </p>
         </div>
 
-        <div className="bg-white rounded-xl shadow-lg p-8">
+        <div className="bg-white rounded-[25px] shadow-lg p-8">
           {error && (
             <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
               <p className="text-sm text-red-600">{error}</p>
@@ -65,7 +63,7 @@ export default function ForgotPasswordPage() {
               <div className="text-center">
                 <Link
                   href="/auth/login"
-                  className="text-sm text-blue-600 hover:text-blue-700 font-medium"
+                  className="text-sm text-[#32487A] hover:text-[#4b8ec2] font-medium"
                 >
                   Back to login
                 </Link>
@@ -82,7 +80,7 @@ export default function ForgotPasswordPage() {
                   name="email"
                   required
                   autoComplete="email"
-                  className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+                  className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
                   placeholder="you@example.com"
                 />
               </div>
@@ -90,7 +88,7 @@ export default function ForgotPasswordPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-[#32487A] text-white py-3 rounded-full font-semibold hover:bg-[#4b8ec2] transition disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? 'Sending...' : 'Send Reset Link'}
               </button>
@@ -98,7 +96,7 @@ export default function ForgotPasswordPage() {
               <div className="text-center">
                 <Link
                   href="/auth/login"
-                  className="text-sm text-blue-600 hover:text-blue-700 font-medium"
+                  className="text-sm text-[#32487A] hover:text-[#4b8ec2] font-medium"
                 >
                   Back to login
                 </Link>

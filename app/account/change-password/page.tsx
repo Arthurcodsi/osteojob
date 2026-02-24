@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
@@ -62,7 +62,7 @@ export default function ChangePasswordPage() {
 
   if (checking) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-[#f0f6ff] flex items-center justify-center">
         <p className="text-gray-600">Loading...</p>
       </div>
     )
@@ -70,9 +70,9 @@ export default function ChangePasswordPage() {
 
   if (success) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4">
+      <div className="min-h-screen bg-[#f0f6ff] flex items-center justify-center py-12 px-4">
         <div className="max-w-md w-full">
-          <div className="bg-white rounded-xl shadow-lg p-8 text-center">
+          <div className="bg-white rounded-[25px] shadow-lg p-8 text-center">
             <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -82,7 +82,7 @@ export default function ChangePasswordPage() {
             <p className="text-gray-600 mb-6">Your password has been changed successfully.</p>
             <Link
               href="/profile"
-              className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
+              className="inline-block bg-[#32487A] text-white px-6 py-3 rounded-full font-semibold hover:bg-[#4b8ec2] transition"
             >
               Back to Settings
             </Link>
@@ -93,16 +93,16 @@ export default function ChangePasswordPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4">
+    <div className="min-h-screen bg-[#f0f6ff] py-12 px-4">
       <div className="max-w-md mx-auto">
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-sm text-gray-500 mb-6">
-          <Link href="/profile" className="hover:text-blue-600 transition">Settings</Link>
+          <Link href="/profile" className="hover:text-[#32487A] transition">Settings</Link>
           <span>/</span>
           <span className="text-gray-900 font-medium">Change Password</span>
         </div>
 
-        <div className="bg-white rounded-xl shadow-lg p-8">
+        <div className="bg-white rounded-[25px] shadow-lg p-8">
           <div className="mb-6">
             <h1 className="text-2xl font-bold text-gray-900">Change Password</h1>
             <p className="text-gray-600 mt-1">Enter a new password for your account.</p>
@@ -125,7 +125,7 @@ export default function ChangePasswordPage() {
                 required
                 minLength={6}
                 autoComplete="new-password"
-                className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+                className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
                 placeholder="••••••••"
               />
             </div>
@@ -140,12 +140,12 @@ export default function ChangePasswordPage() {
                 required
                 minLength={6}
                 autoComplete="new-password"
-                className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+                className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
                 placeholder="••••••••"
               />
             </div>
 
-            <div className="text-sm text-gray-600 bg-gray-50 p-3 rounded-lg">
+            <div className="text-sm text-gray-600 bg-[#f0f6ff] p-3 rounded-lg">
               Password must be at least 6 characters long
             </div>
 
@@ -153,13 +153,13 @@ export default function ChangePasswordPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="flex-1 bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 bg-[#32487A] text-white py-3 rounded-full font-semibold hover:bg-[#4b8ec2] transition disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? 'Updating...' : 'Update Password'}
               </button>
               <Link
                 href="/profile"
-                className="flex-1 text-center border-2 border-gray-300 text-gray-700 py-3 rounded-lg font-semibold hover:border-blue-500 hover:text-blue-600 transition"
+                className="flex-1 text-center border-2 border-gray-300 text-gray-700 py-3 rounded-lg font-semibold hover:border-[#4b8ec2] hover:text-[#32487A] transition"
               >
                 Cancel
               </Link>

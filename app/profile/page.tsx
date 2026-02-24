@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabase'
@@ -115,7 +115,7 @@ export default function ProfilePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-[#f0f6ff] flex items-center justify-center">
         <p className="text-gray-600">Loading...</p>
       </div>
     )
@@ -123,12 +123,12 @@ export default function ProfilePage() {
 
   if (!profile) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
-        <div className="bg-white rounded-xl shadow-sm p-8 max-w-md w-full text-center">
+      <div className="min-h-screen bg-[#f0f6ff] flex items-center justify-center px-4">
+        <div className="bg-white rounded-[25px] shadow-sm p-8 max-w-md w-full text-center">
           <p className="text-2xl mb-3">⚠️</p>
           <h2 className="text-lg font-semibold text-gray-900 mb-2">Profile not found</h2>
           <p className="text-sm text-red-500">{fetchError || 'No profile record found for your account.'}</p>
-          <Link href="/dashboard" className="inline-block mt-4 text-sm text-blue-600 hover:underline">
+          <Link href="/dashboard" className="inline-block mt-4 text-sm text-[#32487A] hover:underline">
             Back to Dashboard
           </Link>
         </div>
@@ -137,7 +137,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-10 px-4">
+    <div className="min-h-screen bg-[#f0f6ff] py-10 px-4">
       <div className="max-w-2xl mx-auto">
 
         {/* Header */}
@@ -147,14 +147,14 @@ export default function ProfilePage() {
         </div>
 
         {/* Account summary card */}
-        <div className="bg-white rounded-xl shadow-sm p-6 mb-6 flex items-center gap-4">
-          <div className="w-14 h-14 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl font-bold shrink-0">
+        <div className="bg-white rounded-[25px] shadow-sm p-6 mb-6 flex items-center gap-4">
+          <div className="w-14 h-14 bg-[#32487A] text-white rounded-full flex items-center justify-center text-2xl font-bold shrink-0">
             {profile.full_name?.[0]?.toUpperCase() || profile.email?.[0]?.toUpperCase()}
           </div>
           <div>
             <p className="font-semibold text-gray-900 text-lg">{profile.full_name || '—'}</p>
             <p className="text-gray-500 text-sm">{profile.email}</p>
-            <span className="inline-block mt-1 text-xs font-medium text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full capitalize">
+            <span className="inline-block mt-1 text-xs font-medium text-[#32487A] bg-[#F5F7FC] px-2 py-0.5 rounded-full capitalize">
               {profile.user_type} Account
             </span>
           </div>
@@ -164,7 +164,7 @@ export default function ProfilePage() {
         <form onSubmit={handleSave} className="space-y-6">
 
           {/* Personal Info */}
-          <div className="bg-white rounded-xl shadow-sm p-6">
+          <div className="bg-white rounded-[25px] shadow-sm p-6">
             <h2 className="text-lg font-semibold text-gray-900 mb-4">Personal Information</h2>
             <div className="space-y-4">
               <div>
@@ -173,7 +173,7 @@ export default function ProfilePage() {
                   type="text"
                   name="full_name"
                   defaultValue={profile.full_name || ''}
-                  className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+                  className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
                   placeholder="Your full name"
                 />
               </div>
@@ -184,7 +184,7 @@ export default function ProfilePage() {
                   type="tel"
                   name="phone"
                   defaultValue={profile.phone || ''}
-                  className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+                  className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
                   placeholder="+1 234 567 890"
                 />
               </div>
@@ -195,7 +195,7 @@ export default function ProfilePage() {
                   type="text"
                   name="location"
                   defaultValue={profile.location || ''}
-                  className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+                  className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
                   placeholder="City, Country"
                 />
               </div>
@@ -206,7 +206,7 @@ export default function ProfilePage() {
                   name="bio"
                   defaultValue={profile.bio || ''}
                   rows={3}
-                  className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 resize-none"
+                  className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2] resize-none"
                   placeholder="A short description about yourself"
                 />
               </div>
@@ -214,7 +214,7 @@ export default function ProfilePage() {
           </div>
 
           {/* Online Presence */}
-          <div className="bg-white rounded-xl shadow-sm p-6">
+          <div className="bg-white rounded-[25px] shadow-sm p-6">
             <h2 className="text-lg font-semibold text-gray-900 mb-4">Online Presence</h2>
             <div className="space-y-4">
               <div>
@@ -223,7 +223,7 @@ export default function ProfilePage() {
                   type="url"
                   name="website"
                   defaultValue={profile.website || ''}
-                  className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+                  className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
                   placeholder="https://yourwebsite.com"
                 />
               </div>
@@ -234,7 +234,7 @@ export default function ProfilePage() {
                   type="url"
                   name="linkedin_url"
                   defaultValue={profile.linkedin_url || ''}
-                  className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+                  className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
                   placeholder="https://linkedin.com/in/yourprofile"
                 />
               </div>
@@ -243,7 +243,7 @@ export default function ProfilePage() {
 
           {/* Candidate-specific */}
           {profile.user_type === 'candidate' && (
-            <div className="bg-white rounded-xl shadow-sm p-6">
+            <div className="bg-white rounded-[25px] shadow-sm p-6">
               <h2 className="text-lg font-semibold text-gray-900 mb-4">Professional Details</h2>
               <div className="space-y-4">
                 <div>
@@ -252,7 +252,7 @@ export default function ProfilePage() {
                     type="text"
                     name="qualifications"
                     defaultValue={profile.qualifications || ''}
-                    className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+                    className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
                     placeholder="e.g. BSc Osteopathy, GOsC registered"
                   />
                 </div>
@@ -265,7 +265,7 @@ export default function ProfilePage() {
                     defaultValue={profile.experience_years || ''}
                     min={0}
                     max={50}
-                    className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+                    className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
                     placeholder="0"
                   />
                 </div>
@@ -275,7 +275,7 @@ export default function ProfilePage() {
 
           {/* Employer-specific */}
           {profile.user_type === 'employer' && (
-            <div className="bg-white rounded-xl shadow-sm p-6">
+            <div className="bg-white rounded-[25px] shadow-sm p-6">
               <h2 className="text-lg font-semibold text-gray-900 mb-4">Company Details</h2>
               <div className="space-y-4">
                 <div>
@@ -284,7 +284,7 @@ export default function ProfilePage() {
                     type="text"
                     name="company_name"
                     defaultValue={profile.company_name || ''}
-                    className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+                    className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
                     placeholder="Your clinic or practice name"
                   />
                 </div>
@@ -295,7 +295,7 @@ export default function ProfilePage() {
                     name="company_description"
                     defaultValue={profile.company_description || ''}
                     rows={3}
-                    className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 resize-none"
+                    className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2] resize-none"
                     placeholder="Describe your clinic or practice"
                   />
                 </div>
@@ -305,7 +305,7 @@ export default function ProfilePage() {
                   <select
                     name="company_size"
                     defaultValue={profile.company_size || ''}
-                    className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 bg-white"
+                    className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2] bg-white"
                   >
                     <option value="">Select size</option>
                     <option value="1-5">1–5 employees</option>
@@ -321,7 +321,7 @@ export default function ProfilePage() {
                     type="text"
                     name="company_address"
                     defaultValue={profile.company_address || ''}
-                    className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+                    className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
                     placeholder="123 Main St, City, Country"
                   />
                 </div>
@@ -330,11 +330,11 @@ export default function ProfilePage() {
           )}
 
           {/* Security */}
-          <div className="bg-white rounded-xl shadow-sm p-6">
+          <div className="bg-white rounded-[25px] shadow-sm p-6">
             <h2 className="text-lg font-semibold text-gray-900 mb-4">Security</h2>
             <Link
               href="/account/change-password"
-              className="inline-flex items-center gap-2 text-sm font-medium text-blue-600 hover:text-blue-700 transition"
+              className="inline-flex items-center gap-2 text-sm font-medium text-[#32487A] hover:text-[#4b8ec2] transition"
             >
               🔒 Change Password
             </Link>
@@ -357,13 +357,13 @@ export default function ProfilePage() {
             <button
               type="submit"
               disabled={saving}
-              className="flex-1 bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 bg-[#32487A] text-white py-3 rounded-full font-semibold hover:bg-[#4b8ec2] transition disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {saving ? 'Saving...' : 'Save Changes'}
             </button>
             <Link
               href="/dashboard"
-              className="flex-1 text-center border-2 border-gray-300 text-gray-700 py-3 rounded-lg font-semibold hover:border-blue-500 hover:text-blue-600 transition"
+              className="flex-1 text-center border-2 border-gray-300 text-gray-700 py-3 rounded-lg font-semibold hover:border-[#4b8ec2] hover:text-[#32487A] transition"
             >
               Back to Dashboard
             </Link>

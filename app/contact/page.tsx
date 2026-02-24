@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState } from 'react'
 import Link from 'next/link'
@@ -33,9 +33,9 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#f0f6ff]">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-600 to-blue-800 text-white py-20 px-4">
+      <section className="text-white py-20 px-4" style={{ background: 'linear-gradient(135deg, #2d436f 0%, #3a5a9b 100%)' }}>
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-5xl font-bold mb-4">Contact Us</h1>
           <p className="text-xl opacity-95">
@@ -48,24 +48,24 @@ export default function ContactPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Contact Information */}
           <div className="lg:col-span-1 space-y-6">
-            <div className="bg-white rounded-xl shadow-sm p-6">
+            <div className="bg-white rounded-[25px] shadow-sm p-6">
               <h2 className="text-2xl font-bold mb-6">Get in Touch</h2>
               
               <div className="space-y-4">
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <div className="w-10 h-10 bg-[#dce8f5] rounded-lg flex items-center justify-center flex-shrink-0">
                     <span className="text-xl">📧</span>
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Email</h3>
-                    <a href="mailto:contact@osteojob.com" className="text-blue-600 hover:underline">
+                    <a href="mailto:contact@osteojob.com" className="text-[#32487A] hover:underline">
                       contact@osteojob.com
                     </a>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <div className="w-10 h-10 bg-[#dce8f5] rounded-lg flex items-center justify-center flex-shrink-0">
                     <span className="text-xl">📍</span>
                   </div>
                   <div>
@@ -78,7 +78,7 @@ export default function ContactPage() {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <div className="w-10 h-10 bg-[#dce8f5] rounded-lg flex items-center justify-center flex-shrink-0">
                     <span className="text-xl">⏰</span>
                   </div>
                   <div>
@@ -92,26 +92,26 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <div className="bg-blue-50 rounded-xl p-6">
+            <div className="bg-[#F5F7FC] rounded-xl p-6">
               <h3 className="font-semibold text-lg mb-3">Quick Links</h3>
               <ul className="space-y-2">
                 <li>
-                  <Link href="/jobs" className="text-blue-600 hover:underline">
+                  <Link href="/jobs" className="text-[#32487A] hover:underline">
                     Browse Jobs
                   </Link>
                 </li>
                 <li>
-                  <Link href="/post-job" className="text-blue-600 hover:underline">
+                  <Link href="/post-job" className="text-[#32487A] hover:underline">
                     Post a Job
                   </Link>
                 </li>
                 <li>
-                  <Link href="/about" className="text-blue-600 hover:underline">
+                  <Link href="/about" className="text-[#32487A] hover:underline">
                     About Us
                   </Link>
                 </li>
                 <li>
-                  <Link href="/terms" className="text-blue-600 hover:underline">
+                  <Link href="/terms" className="text-[#32487A] hover:underline">
                     Terms & Conditions
                   </Link>
                 </li>
@@ -121,7 +121,7 @@ export default function ContactPage() {
 
           {/* Contact Form */}
           <div className="lg:col-span-2">
-            <div className="bg-white rounded-xl shadow-sm p-8">
+            <div className="bg-white rounded-[25px] shadow-sm p-8">
               <h2 className="text-2xl font-bold mb-6">Send us a Message</h2>
 
               {success && (
@@ -143,7 +143,7 @@ export default function ContactPage() {
                       required
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
                       placeholder="John Doe"
                     />
                   </div>
@@ -158,7 +158,7 @@ export default function ContactPage() {
                       required
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
                       placeholder="you@example.com"
                     />
                   </div>
@@ -173,7 +173,7 @@ export default function ContactPage() {
                     required
                     value={formData.subject}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
                   >
                     <option value="">Select a subject...</option>
                     <option value="general">General Inquiry</option>
@@ -196,7 +196,7 @@ export default function ContactPage() {
                     value={formData.message}
                     onChange={handleChange}
                     rows={6}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
                     placeholder="Tell us how we can help..."
                   />
                 </div>
@@ -204,7 +204,7 @@ export default function ContactPage() {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition disabled:opacity-50"
+                  className="w-full bg-[#32487A] text-white py-3 rounded-full font-semibold hover:bg-[#4b8ec2] transition disabled:opacity-50"
                 >
                   {submitting ? 'Sending...' : 'Send Message'}
                 </button>

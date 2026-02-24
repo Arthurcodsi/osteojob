@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState } from 'react'
 import { supabase } from '@/lib/supabase'
@@ -39,12 +39,10 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4">
+    <div className="min-h-screen bg-[#f0f6ff] flex items-center justify-center py-12 px-4">
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
-          <Link href="/" className="text-3xl font-bold text-blue-600">
-            OsteoJob
-          </Link>
+          <Link href="/"><img src="/logo.png" alt="OsteoJob" className="h-12 mx-auto" /></Link>
           <h2 className="mt-6 text-3xl font-bold text-gray-900">
             Welcome back
           </h2>
@@ -53,7 +51,7 @@ export default function LoginPage() {
           </p>
         </div>
 
-        <div className="bg-white rounded-xl shadow-lg p-8">
+        <div className="bg-white rounded-[25px] shadow-lg p-8">
           {error && (
             <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
               <p className="text-sm text-red-600">{error}</p>
@@ -70,7 +68,7 @@ export default function LoginPage() {
                 name="email"
                 required
                 autoComplete="email"
-                className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+                className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
                 placeholder="you@example.com"
               />
             </div>
@@ -84,7 +82,7 @@ export default function LoginPage() {
                 name="password"
                 required
                 autoComplete="current-password"
-                className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+                className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
                 placeholder="••••••••"
               />
             </div>
@@ -93,14 +91,14 @@ export default function LoginPage() {
               <label className="flex items-center">
                 <input
                   type="checkbox"
-                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  className="rounded border-gray-300 text-[#32487A] focus:ring-blue-500"
                 />
                 <span className="ml-2 text-sm text-gray-600">Remember me</span>
               </label>
 
               <Link
                 href="/auth/forgot-password"
-                className="text-sm text-blue-600 hover:text-blue-700 font-medium"
+                className="text-sm text-[#32487A] hover:text-[#4b8ec2] font-medium"
               >
                 Forgot password?
               </Link>
@@ -109,7 +107,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-[#32487A] text-white py-3 rounded-full font-semibold hover:bg-[#4b8ec2] transition disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? 'Signing in...' : 'Sign In'}
             </button>
@@ -130,7 +128,7 @@ export default function LoginPage() {
             <div className="mt-6">
               <Link
                 href="/auth/signup"
-                className="w-full flex justify-center py-3 px-4 border-2 border-gray-300 rounded-lg font-semibold text-gray-700 hover:border-blue-500 hover:text-blue-600 transition"
+                className="w-full flex justify-center py-3 px-4 border-2 border-gray-300 rounded-lg font-semibold text-gray-700 hover:border-[#4b8ec2] hover:text-[#32487A] transition"
               >
                 Create an account
               </Link>

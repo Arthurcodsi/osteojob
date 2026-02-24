@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
@@ -127,7 +127,7 @@ export default function ApplyPage({ params }: { params: Promise<{ id: string }> 
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-[#f0f6ff] flex items-center justify-center">
         <div className="text-center">
           <div className="text-4xl mb-4">⏳</div>
           <p className="text-gray-600">Loading...</p>
@@ -138,11 +138,11 @@ export default function ApplyPage({ params }: { params: Promise<{ id: string }> 
 
   if (!job) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-[#f0f6ff] flex items-center justify-center">
         <div className="text-center">
           <div className="text-6xl mb-4">❌</div>
           <h2 className="text-2xl font-bold mb-2">Job not found</h2>
-          <Link href="/jobs" className="text-blue-600 hover:underline">
+          <Link href="/jobs" className="text-[#32487A] hover:underline">
             Back to jobs
           </Link>
         </div>
@@ -152,8 +152,8 @@ export default function ApplyPage({ params }: { params: Promise<{ id: string }> 
 
   if (success) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4">
-        <div className="max-w-md w-full bg-white rounded-xl shadow-lg p-8 text-center">
+      <div className="min-h-screen bg-[#f0f6ff] flex items-center justify-center py-12 px-4">
+        <div className="max-w-md w-full bg-white rounded-[25px] shadow-lg p-8 text-center">
           <div className="text-6xl mb-4">🎉</div>
           <h2 className="text-3xl font-bold text-green-600 mb-2">
             Application Submitted!
@@ -166,7 +166,7 @@ export default function ApplyPage({ params }: { params: Promise<{ id: string }> 
           </p>
           <Link
             href="/dashboard"
-            className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700"
+            className="inline-block bg-[#32487A] text-white px-6 py-3 rounded-full font-semibold hover:bg-[#4b8ec2]"
           >
             Go to Dashboard
           </Link>
@@ -176,16 +176,16 @@ export default function ApplyPage({ params }: { params: Promise<{ id: string }> 
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4">
+    <div className="min-h-screen bg-[#f0f6ff] py-12 px-4">
       <div className="max-w-3xl mx-auto">
         <Link
           href={`/jobs/${jobId}`}
-          className="inline-flex items-center text-blue-600 hover:text-blue-700 mb-6 font-medium"
+          className="inline-flex items-center text-[#32487A] hover:text-[#4b8ec2] mb-6 font-medium"
         >
           ← Back to job
         </Link>
 
-        <div className="bg-white rounded-xl shadow-lg p-8 mb-6">
+        <div className="bg-white rounded-[25px] shadow-lg p-8 mb-6">
           <h1 className="text-3xl font-bold mb-2">Apply for this position</h1>
           <p className="text-xl text-gray-600 mb-4">{job.title}</p>
           <p className="text-gray-600">
@@ -193,7 +193,7 @@ export default function ApplyPage({ params }: { params: Promise<{ id: string }> 
           </p>
         </div>
 
-        <div className="bg-white rounded-xl shadow-lg p-8">
+        <div className="bg-white rounded-[25px] shadow-lg p-8">
           {error && (
             <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
               <p className="text-sm text-red-600">{error}</p>
@@ -209,7 +209,7 @@ export default function ApplyPage({ params }: { params: Promise<{ id: string }> 
                 type="text"
                 name="name"
                 required
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
                 placeholder="John Doe"
               />
             </div>
@@ -223,7 +223,7 @@ export default function ApplyPage({ params }: { params: Promise<{ id: string }> 
                 name="email"
                 required
                 defaultValue={user?.email}
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
                 placeholder="you@example.com"
               />
             </div>
@@ -235,7 +235,7 @@ export default function ApplyPage({ params }: { params: Promise<{ id: string }> 
               <input
                 type="tel"
                 name="phone"
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
                 placeholder="+44 123 456 7890"
               />
             </div>
@@ -249,7 +249,7 @@ export default function ApplyPage({ params }: { params: Promise<{ id: string }> 
                 accept=".pdf,.doc,.docx"
                 required
                 onChange={(e) => setCvFile(e.target.files?.[0] || null)}
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 file:mr-4 file:py-1 file:px-4 file:rounded file:border-0 file:bg-blue-50 file:text-blue-600 file:font-semibold hover:file:bg-blue-100"
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2] file:mr-4 file:py-1 file:px-4 file:rounded file:border-0 file:bg-[#F5F7FC] file:text-[#32487A] file:font-semibold hover:file:bg-[#dce8f5]"
               />
               <p className="text-sm text-gray-500 mt-1">
                 PDF, DOC or DOCX — max 5MB
@@ -264,7 +264,7 @@ export default function ApplyPage({ params }: { params: Promise<{ id: string }> 
                 name="coverLetter"
                 required
                 rows={8}
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
                 placeholder="Tell the employer why you're interested in this position..."
               />
               <p className="text-sm text-gray-500 mt-1">
@@ -272,8 +272,8 @@ export default function ApplyPage({ params }: { params: Promise<{ id: string }> 
               </p>
             </div>
 
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-              <p className="text-sm text-blue-800">
+            <div className="bg-[#F5F7FC] border border-blue-200 rounded-lg p-4">
+              <p className="text-sm text-[#2d436f]">
                 📧 Your application will be sent directly to the employer's email.
                 They will contact you if you're a good fit for the role.
               </p>
@@ -283,7 +283,7 @@ export default function ApplyPage({ params }: { params: Promise<{ id: string }> 
               <button
                 type="submit"
                 disabled={submitting}
-                className="flex-1 bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition disabled:opacity-50"
+                className="flex-1 bg-[#32487A] text-white py-3 rounded-full font-semibold hover:bg-[#4b8ec2] transition disabled:opacity-50"
               >
                 {submitting ? 'Submitting...' : 'Submit Application'}
               </button>

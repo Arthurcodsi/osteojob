@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 
 export default async function JobsPage({
@@ -28,7 +28,7 @@ export default async function JobsPage({
   const { data: jobs } = await query.order('posted_date', { ascending: false })
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4">
+    <div className="min-h-screen bg-[#f0f6ff] py-12 px-4">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-8">
@@ -39,20 +39,20 @@ export default async function JobsPage({
         </div>
 
         {/* Filters */}
-        <div className="bg-white rounded-xl shadow-sm p-6 mb-8">
+        <div className="bg-white rounded-[25px] shadow-sm p-6 mb-8">
           <form method="GET" className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <input
               type="text"
               name="search"
               placeholder="Search jobs..."
               defaultValue={params.search}
-              className="px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+              className="px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
             />
             
             <select
               name="location"
               defaultValue={params.location}
-              className="px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+              className="px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
             >
               <option value="">All Locations</option>
               <option value="United Kingdom">United Kingdom</option>
@@ -68,7 +68,7 @@ export default async function JobsPage({
             <select
               name="type"
               defaultValue={params.type}
-              className="px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+              className="px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
             >
               <option value="">All Types</option>
               <option value="Full Time">Full Time</option>
@@ -79,7 +79,7 @@ export default async function JobsPage({
 
             <button
               type="submit"
-              className="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-700 transition"
+              className="bg-[#32487A] text-white px-6 py-2 rounded-full font-semibold hover:bg-[#4b8ec2] transition"
             >
               Filter
             </button>
@@ -93,11 +93,11 @@ export default async function JobsPage({
               <Link
                 key={job.id}
                 href={`/jobs/${job.id}`}
-                className="block bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition group"
+                className="block bg-white rounded-[25px] shadow-sm p-6 hover:shadow-md transition group"
               >
                 <div className="flex items-start justify-between">
                   <div className="flex gap-4 flex-1">
-                    <div className="w-16 h-16 bg-gray-100 rounded-lg flex-shrink-0 overflow-hidden flex items-center justify-center font-bold text-blue-600">
+                    <div className="w-16 h-16 bg-gray-100 rounded-lg flex-shrink-0 overflow-hidden flex items-center justify-center font-bold text-[#32487A]">
                       {job.featured_image ? (
                         <img src={job.featured_image} alt={job.title} className="w-full h-full object-cover" />
                       ) : (
@@ -106,7 +106,7 @@ export default async function JobsPage({
                     </div>
 
                     <div className="flex-1">
-                      <h2 className="text-xl font-semibold mb-1 text-gray-900 group-hover:text-blue-600 transition">
+                      <h2 className="text-xl font-semibold mb-1 text-gray-900 group-hover:text-[#32487A] transition">
                         {job.title}
                       </h2>
                       <p className="text-gray-600 mb-3">
@@ -114,7 +114,7 @@ export default async function JobsPage({
                       </p>
 
                       <div className="flex flex-wrap gap-3 text-sm">
-                        <span className="px-3 py-1 bg-blue-50 text-blue-600 rounded-full font-medium">
+                        <span className="px-3 py-1 bg-[#F5F7FC] text-[#32487A] rounded-full font-medium">
                           {job.job_type}
                         </span>
                         <span className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full">
@@ -157,7 +157,7 @@ export default async function JobsPage({
             ))}
           </div>
         ) : (
-          <div className="bg-white rounded-xl shadow-sm p-12 text-center">
+          <div className="bg-white rounded-[25px] shadow-sm p-12 text-center">
             <div className="text-6xl mb-4">🔍</div>
             <h3 className="text-2xl font-semibold mb-2">No jobs found</h3>
             <p className="text-gray-600 mb-6">
@@ -165,7 +165,7 @@ export default async function JobsPage({
             </p>
             <Link
               href="/jobs"
-              className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
+              className="inline-block bg-[#32487A] text-white px-6 py-3 rounded-full font-semibold hover:bg-[#4b8ec2] transition"
             >
               Clear Filters
             </Link>

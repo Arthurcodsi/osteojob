@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
@@ -145,7 +145,7 @@ export default function PostJobPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-[#f0f6ff] flex items-center justify-center">
         <div className="text-center">
           <div className="text-4xl mb-4">⏳</div>
           <p className="text-gray-600">Loading...</p>
@@ -156,8 +156,8 @@ export default function PostJobPage() {
 
   if (authStatus === 'not-logged-in') {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
-        <div className="bg-white rounded-xl shadow-lg p-10 max-w-md w-full text-center">
+      <div className="min-h-screen bg-[#f0f6ff] flex items-center justify-center px-4">
+        <div className="bg-white rounded-[25px] shadow-lg p-10 max-w-md w-full text-center">
           <div className="text-5xl mb-4">🔒</div>
           <h2 className="text-2xl font-bold mb-2">Sign in required</h2>
           <p className="text-gray-600 mb-6">
@@ -166,13 +166,13 @@ export default function PostJobPage() {
           <div className="flex flex-col gap-3">
             <Link
               href="/auth/login?redirect=/post-job"
-              className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
+              className="bg-[#32487A] text-white px-6 py-3 rounded-full font-semibold hover:bg-[#4b8ec2] transition"
             >
               Log in
             </Link>
             <Link
               href="/auth/signup?type=employer"
-              className="border-2 border-blue-600 text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 transition"
+              className="border-2 border-[#32487A] text-[#32487A] px-6 py-3 rounded-lg font-semibold hover:bg-[#F5F7FC] transition"
             >
               Create an employer account
             </Link>
@@ -184,8 +184,8 @@ export default function PostJobPage() {
 
   if (authStatus === 'not-employer') {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
-        <div className="bg-white rounded-xl shadow-lg p-10 max-w-md w-full text-center">
+      <div className="min-h-screen bg-[#f0f6ff] flex items-center justify-center px-4">
+        <div className="bg-white rounded-[25px] shadow-lg p-10 max-w-md w-full text-center">
           <div className="text-5xl mb-4">🏢</div>
           <h2 className="text-2xl font-bold mb-2">Employer account required</h2>
           <p className="text-gray-600 mb-6">
@@ -194,7 +194,7 @@ export default function PostJobPage() {
           <div className="flex flex-col gap-3">
             <Link
               href="/auth/signup?type=employer"
-              className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
+              className="bg-[#32487A] text-white px-6 py-3 rounded-full font-semibold hover:bg-[#4b8ec2] transition"
             >
               Create an employer account
             </Link>
@@ -211,12 +211,12 @@ export default function PostJobPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4">
+    <div className="min-h-screen bg-[#f0f6ff] py-12 px-4">
       <div className="max-w-3xl mx-auto">
         <div className="mb-8">
           <Link
             href="/dashboard"
-            className="inline-flex items-center text-blue-600 hover:text-blue-700 mb-4 font-medium"
+            className="inline-flex items-center text-[#32487A] hover:text-[#4b8ec2] mb-4 font-medium"
           >
             ← Back to Dashboard
           </Link>
@@ -226,7 +226,7 @@ export default function PostJobPage() {
           </p>
         </div>
 
-        <div className="bg-white rounded-xl shadow-lg p-8">
+        <div className="bg-white rounded-[25px] shadow-lg p-8">
           {error && (
             <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
               <p className="text-sm text-red-600">{error}</p>
@@ -243,7 +243,7 @@ export default function PostJobPage() {
                 type="text"
                 name="title"
                 required
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
                 placeholder="e.g. Associate Osteopath"
               />
             </div>
@@ -259,7 +259,7 @@ export default function PostJobPage() {
                     type="file"
                     accept="image/*"
                     onChange={handleImageChange}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
                   />
                   <p className="text-sm text-gray-500 mt-1">
                     Upload a company logo or photo (JPG, PNG, max 5MB)
@@ -281,7 +281,7 @@ export default function PostJobPage() {
               <select
                 name="jobType"
                 required
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
               >
                 <option value="">Select type...</option>
                 <option value="Full Time">Full Time</option>
@@ -299,7 +299,7 @@ export default function PostJobPage() {
               </label>
               <select
                 name="category"
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
               >
                 <option value="All Specialties">All Specialties</option>
                 <option value="Structural">Structural</option>
@@ -320,7 +320,7 @@ export default function PostJobPage() {
                 <select
                   name="country"
                   required
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
                 >
                   <option value="">Select country...</option>
                   <option value="Australia">Australia</option>
@@ -363,7 +363,7 @@ export default function PostJobPage() {
                 <input
                   type="text"
                   name="city"
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
                   placeholder="e.g. London"
                 />
               </div>
@@ -377,7 +377,7 @@ export default function PostJobPage() {
               <input
                 type="text"
                 name="salary"
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
                 placeholder="e.g. £30,000 - £45,000"
               />
               <p className="text-sm text-gray-500 mt-1">
@@ -394,7 +394,7 @@ export default function PostJobPage() {
                 name="description"
                 required
                 rows={12}
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
                 placeholder="Describe the role, responsibilities, requirements, and what makes your practice a great place to work..."
               />
               <p className="text-sm text-gray-500 mt-1">
@@ -403,11 +403,11 @@ export default function PostJobPage() {
             </div>
 
             {/* Company Info Preview */}
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-              <p className="text-sm text-blue-800 font-semibold mb-2">
+            <div className="bg-[#F5F7FC] border border-blue-200 rounded-lg p-4">
+              <p className="text-sm text-[#2d436f] font-semibold mb-2">
                 📋 Job will be posted by:
               </p>
-              <p className="text-sm text-blue-700">
+              <p className="text-sm text-[#32487A]">
                 {profile?.company_name || 'Your Company'}
               </p>
             </div>
@@ -417,7 +417,7 @@ export default function PostJobPage() {
               <button
                 type="submit"
                 disabled={submitting}
-                className="flex-1 bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition disabled:opacity-50"
+                className="flex-1 bg-[#32487A] text-white py-3 rounded-full font-semibold hover:bg-[#4b8ec2] transition disabled:opacity-50"
               >
                 {submitting ? 'Posting Job...' : 'Post Job'}
               </button>

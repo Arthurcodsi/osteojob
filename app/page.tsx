@@ -1,8 +1,9 @@
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
-import { DM_Serif_Display } from 'next/font/google'
+import { League_Spartan, Jost } from 'next/font/google'
 
-const serif = DM_Serif_Display({ weight: '400', subsets: ['latin'] })
+const spartan = League_Spartan({ weight: ['400', '600', '700'], subsets: ['latin'] })
+const jost = Jost({ weight: ['400', '500'], subsets: ['latin'] })
 
 export default async function Home() {
   const { data: jobs } = await supabase
@@ -22,33 +23,35 @@ export default async function Home() {
     .select('*', { count: 'exact', head: true })
 
   return (
-    <main className="min-h-screen" style={{ background: '#f0f6ff' }}>
+    <main className={`min-h-screen ${jost.className}`} style={{ background: '#f0f6ff' }}>
 
       {/* Hero */}
-      <section className="bg-gradient-to-br from-blue-500 to-blue-700 text-white py-20 px-4">
+      <section className="text-white py-20 px-4" style={{ background: 'linear-gradient(135deg, #2d436f 0%, #3a5a9b 100%)' }}>
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-blue-200 text-sm font-semibold tracking-widest uppercase mb-4">
             The Job Board for Osteopaths
           </p>
-          <h1 className={`${serif.className} text-5xl md:text-6xl leading-tight mb-5`}>
-            Your Osteopathic<br />Career Partner
+          <h1 className={`${spartan.className} text-4xl md:text-5xl font-semibold leading-snug mb-5`}>
+            Your Osteopathic Career Partner
           </h1>
           <p className="text-blue-100 text-lg mb-10 max-w-xl mx-auto">
             Connect with the best opportunities worldwide. Find your perfect role or discover talented professionals.
           </p>
 
           {/* Search Box */}
-          <div className="bg-white rounded-2xl shadow-xl p-5 text-gray-900 max-w-2xl mx-auto">
+          <div className="bg-white rounded-[35px] shadow-xl p-5 text-gray-900 max-w-2xl mx-auto">
             <form action="/jobs" method="GET" className="grid grid-cols-1 md:grid-cols-3 gap-3">
               <input
                 type="text"
                 name="search"
                 placeholder="Job title or keyword"
-                className="px-4 py-3 border-2 border-gray-100 rounded-xl focus:outline-none focus:border-blue-400 bg-gray-50"
+                className="px-5 py-3 border-2 border-gray-100 rounded-full focus:outline-none focus:border-[#4b8ec2] text-gray-700"
+                style={{ background: '#F5F7FC' }}
               />
               <select
                 name="location"
-                className="px-4 py-3 border-2 border-gray-100 rounded-xl focus:outline-none focus:border-blue-400 bg-gray-50 text-gray-600"
+                className="px-5 py-3 border-2 border-gray-100 rounded-full focus:outline-none focus:border-[#4b8ec2] text-gray-600"
+                style={{ background: '#F5F7FC' }}
               >
                 <option value="">All Locations</option>
                 <option value="United Kingdom">United Kingdom</option>
@@ -59,7 +62,7 @@ export default async function Home() {
               </select>
               <button
                 type="submit"
-                className="bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-blue-700 transition"
+                className={`${spartan.className} text-white px-6 py-3 rounded-full font-semibold bg-[#32487A] hover:bg-[#4b8ec2] transition`}
               >
                 Search Jobs
               </button>
@@ -77,8 +80,10 @@ export default async function Home() {
             { value: '150+', label: 'CPD Courses' },
             { value: '25+', label: 'Countries' },
           ].map((stat) => (
-            <div key={stat.label} className="bg-white rounded-2xl shadow-md p-5 text-center">
-              <div className="text-3xl font-bold text-blue-600 mb-1">{stat.value}</div>
+            <div key={stat.label} className="bg-white rounded-[25px] shadow-md p-5 text-center">
+              <div className={`${spartan.className} text-3xl font-bold mb-1`} style={{ color: '#2d436f' }}>
+                {stat.value}
+              </div>
               <div className="text-gray-500 text-sm">{stat.label}</div>
             </div>
           ))}
@@ -89,10 +94,10 @@ export default async function Home() {
       <section className="max-w-6xl mx-auto px-4 mb-20">
         <div className="flex items-end justify-between mb-8">
           <div>
-            <p className="text-xs font-bold tracking-widest text-blue-500 uppercase mb-1">Fresh Opportunities</p>
-            <h2 className={`${serif.className} text-4xl text-gray-900`}>Latest Positions</h2>
+            <p className="text-xs font-bold tracking-widest uppercase mb-1" style={{ color: '#4b8ec2' }}>Fresh Opportunities</p>
+            <h2 className={`${spartan.className} text-4xl font-semibold`} style={{ color: '#2d436f' }}>Latest Positions</h2>
           </div>
-          <Link href="/jobs" className="text-sm font-semibold text-blue-600 hover:text-blue-800 transition">
+          <Link href="/jobs" className="text-sm font-semibold transition hover:opacity-70" style={{ color: '#32487A' }}>
             View all →
           </Link>
         </div>
@@ -102,9 +107,9 @@ export default async function Home() {
             <Link
               key={job.id}
               href={`/jobs/${job.id}`}
-              className="group bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-200"
+              className="group bg-white rounded-[35px] shadow-sm overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-200"
             >
-              <div className="h-40 bg-blue-50 overflow-hidden">
+              <div className="h-40 overflow-hidden" style={{ background: '#F5F7FC' }}>
                 {job.featured_image ? (
                   <img
                     src={job.featured_image}
@@ -112,16 +117,16 @@ export default async function Home() {
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center text-3xl font-bold text-blue-200">
+                  <div className={`${spartan.className} w-full h-full flex items-center justify-center text-3xl font-bold`} style={{ color: '#c7d4e8' }}>
                     {job.employer?.company_name?.substring(0, 2).toUpperCase() || 'OJ'}
                   </div>
                 )}
               </div>
               <div className="p-5">
-                <span className="inline-block px-3 py-1 bg-blue-50 text-blue-600 text-xs font-semibold rounded-full mb-3">
+                <span className="inline-block px-4 py-1 text-xs font-semibold rounded-full mb-3" style={{ background: '#F5F7FC', color: '#32487A' }}>
                   {job.job_type}
                 </span>
-                <h3 className="font-semibold text-gray-900 mb-1 group-hover:text-blue-600 transition line-clamp-2">
+                <h3 className={`${spartan.className} font-semibold mb-1 transition line-clamp-2 text-gray-900`} style={{ color: '#2d436f' }}>
                   {job.title}
                 </h3>
                 <p className="text-sm text-gray-500 mb-3">
@@ -138,7 +143,7 @@ export default async function Home() {
         <div className="text-center mt-10">
           <Link
             href="/jobs"
-            className="inline-block bg-blue-600 text-white px-8 py-3 rounded-xl font-semibold hover:bg-blue-700 transition shadow-md"
+            className={`${spartan.className} inline-block text-white px-8 py-3 rounded-full font-semibold bg-[#32487A] hover:bg-[#4b8ec2] transition shadow-md`}
           >
             Browse All Jobs
           </Link>
@@ -149,8 +154,8 @@ export default async function Home() {
       <section className="bg-white py-20 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-14">
-            <p className="text-xs font-bold tracking-widest text-blue-500 uppercase mb-2">Simple Process</p>
-            <h2 className={`${serif.className} text-4xl text-gray-900`}>How It Works</h2>
+            <p className="text-xs font-bold tracking-widest uppercase mb-2" style={{ color: '#4b8ec2' }}>Simple Process</p>
+            <h2 className={`${spartan.className} text-4xl font-semibold`} style={{ color: '#2d436f' }}>How It Works</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
@@ -160,10 +165,13 @@ export default async function Home() {
               { num: '3', title: 'Get Hired', desc: 'Connect with employers, attend interviews, and land your dream osteopathic role.' },
             ].map((step) => (
               <div key={step.num} className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-700 text-white rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-5 shadow-md">
+                <div
+                  className={`${spartan.className} w-16 h-16 text-white rounded-[18px] flex items-center justify-center text-2xl font-bold mx-auto mb-5 shadow-md`}
+                  style={{ background: '#2d436f' }}
+                >
                   {step.num}
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-2 text-lg">{step.title}</h3>
+                <h3 className={`${spartan.className} font-semibold mb-2 text-lg`} style={{ color: '#2d436f' }}>{step.title}</h3>
                 <p className="text-gray-500 text-sm leading-relaxed max-w-xs mx-auto">{step.desc}</p>
               </div>
             ))}
@@ -172,9 +180,9 @@ export default async function Home() {
       </section>
 
       {/* CTA */}
-      <section className="bg-gradient-to-br from-blue-600 to-blue-800 text-white py-20 px-4 text-center">
+      <section className="text-white py-20 px-4 text-center" style={{ background: 'linear-gradient(135deg, #2d436f 0%, #3a5a9b 100%)' }}>
         <p className="text-blue-200 text-xs font-bold tracking-widest uppercase mb-4">Join OsteoJob</p>
-        <h2 className={`${serif.className} text-4xl md:text-5xl mb-6`}>
+        <h2 className={`${spartan.className} text-4xl md:text-5xl font-semibold mb-6`}>
           Ready to Take the Next Step?
         </h2>
         <p className="text-blue-100 mb-10 max-w-xl mx-auto">
@@ -183,13 +191,15 @@ export default async function Home() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link
             href="/jobs"
-            className="bg-white text-blue-700 px-8 py-3 rounded-xl font-semibold hover:bg-blue-50 transition shadow"
+            className={`${spartan.className} bg-white px-8 py-3 rounded-full font-semibold hover:opacity-90 transition shadow`}
+            style={{ color: '#2d436f' }}
           >
             Browse Jobs
           </Link>
           <Link
             href="/auth/signup"
-            className="border-2 border-white text-white px-8 py-3 rounded-xl font-semibold hover:bg-white hover:text-blue-700 transition"
+            className={`${spartan.className} border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white transition`}
+            style={{}}
           >
             Sign Up Free
           </Link>

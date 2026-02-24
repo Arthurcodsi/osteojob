@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabase'
@@ -85,7 +85,7 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-[#f0f6ff] flex items-center justify-center">
         <div className="text-center">
           <div className="text-4xl mb-4">⏳</div>
           <p className="text-gray-600">Loading your dashboard...</p>
@@ -99,10 +99,10 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4">
+    <div className="min-h-screen bg-[#f0f6ff] py-8 px-4">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
+        <div className="bg-white rounded-[25px] shadow-sm p-6 mb-6">
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-3xl font-bold text-gray-900">
@@ -119,7 +119,7 @@ export default function DashboardPage() {
             <div className="flex gap-3">
               <Link
                 href="/"
-                className="px-4 py-2 border-2 border-gray-300 rounded-lg font-semibold hover:border-blue-500 transition"
+                className="px-4 py-2 border-2 border-gray-300 rounded-lg font-semibold hover:border-[#4b8ec2] transition"
               >
                 Home
               </Link>
@@ -140,21 +140,21 @@ export default function DashboardPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
               <Link
                 href="/post-job"
-                className="bg-blue-600 text-white p-6 rounded-xl shadow-sm hover:bg-blue-700 transition text-center"
+                className="bg-[#32487A] text-white p-6 rounded-[25px] shadow-sm hover:bg-[#4b8ec2] transition text-center"
               >
                 <div className="text-3xl mb-2">➕</div>
                 <div className="font-semibold">Post New Job</div>
               </Link>
 
-              <div className="bg-white p-6 rounded-xl shadow-sm text-center">
-                <div className="text-3xl font-bold text-blue-600 mb-2">
+              <div className="bg-white p-6 rounded-[25px] shadow-sm text-center">
+                <div className="text-3xl font-bold text-[#32487A] mb-2">
                   {jobs.length}
                 </div>
                 <div className="text-gray-600">Active Jobs</div>
               </div>
 
-              <div className="bg-white p-6 rounded-xl shadow-sm text-center">
-                <div className="text-3xl font-bold text-blue-600 mb-2">
+              <div className="bg-white p-6 rounded-[25px] shadow-sm text-center">
+                <div className="text-3xl font-bold text-[#32487A] mb-2">
                   {jobs.reduce((sum, job) => sum + job.application_count, 0)}
                 </div>
                 <div className="text-gray-600">Total Applications</div>
@@ -162,7 +162,7 @@ export default function DashboardPage() {
             </div>
 
             {/* Your Jobs */}
-            <div className="bg-white rounded-xl shadow-sm p-6">
+            <div className="bg-white rounded-[25px] shadow-sm p-6">
               <h2 className="text-2xl font-bold mb-4">Your Job Listings</h2>
 
               {jobs.length > 0 ? (
@@ -170,7 +170,7 @@ export default function DashboardPage() {
                   {jobs.map((job) => (
                     <div
                       key={job.id}
-                      className="border-2 border-gray-200 rounded-lg p-4 hover:border-blue-500 transition"
+                      className="border-2 border-gray-200 rounded-lg p-4 hover:border-[#4b8ec2] transition"
                     >
                       <div className="flex justify-between items-start">
                         <div>
@@ -186,7 +186,7 @@ export default function DashboardPage() {
                         <div className="flex gap-2">
                           <Link
                             href={`/jobs/${job.id}`}
-                            className="px-4 py-2 border-2 border-gray-300 rounded-lg text-sm font-semibold hover:border-blue-500"
+                            className="px-4 py-2 border-2 border-gray-300 rounded-lg text-sm font-semibold hover:border-[#4b8ec2]"
                           >
                             View
                           </Link>
@@ -207,7 +207,7 @@ export default function DashboardPage() {
                   <p className="mb-4">You haven't posted any jobs yet</p>
                   <Link
                     href="/post-job"
-                    className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700"
+                    className="inline-block bg-[#32487A] text-white px-6 py-3 rounded-full font-semibold hover:bg-[#4b8ec2]"
                   >
                     Post Your First Job
                   </Link>
@@ -224,20 +224,20 @@ export default function DashboardPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
               <Link
                 href="/jobs"
-                className="bg-blue-600 text-white p-6 rounded-xl shadow-sm hover:bg-blue-700 transition text-center"
+                className="bg-[#32487A] text-white p-6 rounded-[25px] shadow-sm hover:bg-[#4b8ec2] transition text-center"
               >
                 <div className="text-3xl mb-2">🔍</div>
                 <div className="font-semibold">Browse Jobs</div>
               </Link>
 
-              <div className="bg-white p-6 rounded-xl shadow-sm text-center">
-                <div className="text-3xl font-bold text-blue-600 mb-2">
+              <div className="bg-white p-6 rounded-[25px] shadow-sm text-center">
+                <div className="text-3xl font-bold text-[#32487A] mb-2">
                   {applications.length}
                 </div>
                 <div className="text-gray-600">Applications Sent</div>
               </div>
 
-              <div className="bg-white p-6 rounded-xl shadow-sm text-center">
+              <div className="bg-white p-6 rounded-[25px] shadow-sm text-center">
                 <div className="text-3xl font-bold text-green-600 mb-2">
                   {applications.filter(a => a.status === 'shortlisted').length}
                 </div>
@@ -246,7 +246,7 @@ export default function DashboardPage() {
             </div>
 
             {/* Your Applications */}
-            <div className="bg-white rounded-xl shadow-sm p-6">
+            <div className="bg-white rounded-[25px] shadow-sm p-6">
               <h2 className="text-2xl font-bold mb-4">Your Applications</h2>
 
               {applications.length > 0 ? (
@@ -275,7 +275,7 @@ export default function DashboardPage() {
                               : app.status === 'shortlisted'
                               ? 'bg-green-100 text-green-700'
                               : app.status === 'reviewed'
-                              ? 'bg-blue-100 text-blue-700'
+                              ? 'bg-[#dce8f5] text-[#32487A]'
                               : 'bg-gray-100 text-gray-700'
                           }`}
                         >
@@ -291,7 +291,7 @@ export default function DashboardPage() {
                   <p className="mb-4">You haven't applied to any jobs yet</p>
                   <Link
                     href="/jobs"
-                    className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700"
+                    className="inline-block bg-[#32487A] text-white px-6 py-3 rounded-full font-semibold hover:bg-[#4b8ec2]"
                   >
                     Browse Jobs
                   </Link>

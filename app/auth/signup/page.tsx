@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState } from 'react'
 import { supabase } from '@/lib/supabase'
@@ -63,12 +63,10 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4">
+    <div className="min-h-screen bg-[#f0f6ff] flex items-center justify-center py-12 px-4">
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
-          <Link href="/" className="text-3xl font-bold text-blue-600">
-            OsteoJob
-          </Link>
+          <Link href="/"><img src="/logo.png" alt="OsteoJob" className="h-12 mx-auto" /></Link>
           <h2 className="mt-6 text-3xl font-bold text-gray-900">
             Create your account
           </h2>
@@ -77,7 +75,7 @@ export default function SignupPage() {
           </p>
         </div>
 
-        <div className="bg-white rounded-xl shadow-lg p-8">
+        <div className="bg-white rounded-[25px] shadow-lg p-8">
           {success ? (
             <div className="text-center py-8">
               <div className="text-6xl mb-4">✅</div>
@@ -104,7 +102,7 @@ export default function SignupPage() {
                     onClick={() => setUserType('candidate')}
                     className={`p-4 rounded-lg border-2 font-semibold transition ${
                       userType === 'candidate'
-                        ? 'border-blue-600 bg-blue-50 text-blue-600'
+                        ? 'border-[#32487A] bg-[#F5F7FC] text-[#32487A]'
                         : 'border-gray-200 hover:border-gray-300'
                     }`}
                   >
@@ -118,7 +116,7 @@ export default function SignupPage() {
                     onClick={() => setUserType('employer')}
                     className={`p-4 rounded-lg border-2 font-semibold transition ${
                       userType === 'employer'
-                        ? 'border-blue-600 bg-blue-50 text-blue-600'
+                        ? 'border-[#32487A] bg-[#F5F7FC] text-[#32487A]'
                         : 'border-gray-200 hover:border-gray-300'
                     }`}
                   >
@@ -145,7 +143,7 @@ export default function SignupPage() {
                     type="text"
                     name="fullName"
                     required
-                    className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+                    className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
                     placeholder="John Doe"
                   />
                 </div>
@@ -159,7 +157,7 @@ export default function SignupPage() {
                       type="text"
                       name="companyName"
                       required
-                      className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+                      className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
                       placeholder="Your Practice Name"
                     />
                   </div>
@@ -173,7 +171,7 @@ export default function SignupPage() {
                     type="email"
                     name="email"
                     required
-                    className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+                    className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
                     placeholder="you@example.com"
                   />
                 </div>
@@ -187,7 +185,7 @@ export default function SignupPage() {
                     name="password"
                     required
                     minLength={6}
-                    className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+                    className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
                     placeholder="••••••••"
                   />
                   <p className="text-xs text-gray-500 mt-1">
@@ -198,7 +196,7 @@ export default function SignupPage() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full bg-[#32487A] text-white py-3 rounded-full font-semibold hover:bg-[#4b8ec2] transition disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {loading ? 'Creating account...' : 'Create Account'}
                 </button>
@@ -206,7 +204,7 @@ export default function SignupPage() {
 
               <div className="mt-6 text-center text-sm">
                 <span className="text-gray-600">Already have an account? </span>
-                <Link href="/auth/login" className="text-blue-600 font-semibold hover:text-blue-700">
+                <Link href="/auth/login" className="text-[#32487A] font-semibold hover:text-[#4b8ec2]">
                   Sign in
                 </Link>
               </div>
