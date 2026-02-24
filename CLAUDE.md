@@ -63,6 +63,24 @@ Already run once on 2026-02-23 — updated ~160 of 243 jobs.
 
 ---
 
+## TODO at Launch: Switch Domain from SiteGround to Vercel
+
+The domain `osteojob.com` is registered on GoDaddy but DNS is currently managed by SiteGround (old website).
+
+### Steps to go live on Vercel:
+1. **In Vercel** → Project Settings → Domains → Add `osteojob.com`
+   - Vercel will give you DNS records to add (an A record and/or CNAME)
+2. **In SiteGround** → go to DNS Zone Editor and update the records:
+   - Point the A record for `@` to Vercel's IP
+   - Point `www` CNAME to `cname.vercel-dns.com`
+   - (Or update GoDaddy nameservers to point to Vercel's nameservers instead)
+3. Wait up to 24h for DNS propagation — the old SiteGround site will go offline
+4. SSL is handled automatically by Vercel (no action needed)
+
+> Do this last, after everything else is ready (Zoho email, bulk invite, final testing).
+
+---
+
 ## TODO at Launch: Email Setup
 
 Currently using **Gmail SMTP** for testing. Switch to **Zoho Mail** at launch.
