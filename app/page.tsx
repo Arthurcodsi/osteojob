@@ -1,19 +1,17 @@
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
+import { DM_Serif_Display } from 'next/font/google'
+
+const serif = DM_Serif_Display({ weight: '400', subsets: ['latin'] })
 
 export default async function Home() {
-  // Fetch latest jobs
-  const { data: jobs, error } = await supabase
+  const { data: jobs } = await supabase
     .from('jobs')
     .select('*, employer:profiles!employer_id(*)')
     .eq('status', 'active')
     .order('posted_date', { ascending: false })
     .limit(6)
 
-  console.log('Query error:', JSON.stringify(error, null, 2))
-  console.log('Jobs fetched:', jobs)
-  console.log('Jobs count:', jobs?.length)
-  // Get stats
   const { count: jobCount } = await supabase
     .from('jobs')
     .select('*', { count: 'exact', head: true })
@@ -24,81 +22,84 @@ export default async function Home() {
     .select('*', { count: 'exact', head: true })
 
   return (
-    <main className="min-h-screen">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-400 to-blue-500 text-white py-20 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-5xl font-bold mb-4">
-            Your Osteopathic Career Partner
+    <main className="min-h-screen bg-white">
+
+      {/* Hero */}
+      <section className="border-b border-gray-200">
+        <div className="max-w-6xl mx-auto px-4 py-16 md:py-24">
+          <p className="text-xs font-bold tracking-widest text-teal-600 uppercase mb-5">
+            The Job Board for Osteopaths
+          </p>
+          <h1 className={`${serif.className} text-5xl md:text-7xl text-gray-900 leading-tight mb-6 max-w-3xl`}>
+            Your Osteopathic<br />Career Partner
           </h1>
-          <p className="text-xl mb-8 opacity-95">
+          <p className="text-lg text-gray-500 mb-10 max-w-xl">
             Connect with the best opportunities worldwide. Find your perfect role or discover talented professionals.
           </p>
 
-          {/* Search Box */}
-          <div className="bg-white rounded-xl shadow-2xl p-6 text-gray-900">
-            <form action="/jobs" method="GET" className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <input
-                type="text"
-                name="search"
-                placeholder="Job title or keyword"
-                className="px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
-              />
-              <select
-                name="location"
-                className="px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
-              >
-                <option value="">All Locations</option>
-                <option value="United Kingdom">United Kingdom</option>
-                <option value="Australia">Australia</option>
-                <option value="New Zealand">New Zealand</option>
-                <option value="USA">USA</option>
-                <option value="Canada">Canada</option>
-              </select>
-              <button
-                type="submit"
-                className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
-              >
-                Search Jobs
-              </button>
-            </form>
-          </div>
+          <form action="/jobs" method="GET" className="flex flex-col sm:flex-row gap-3 max-w-2xl">
+            <input
+              type="text"
+              name="search"
+              placeholder="Job title or keyword"
+              className="flex-1 px-5 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-gray-900 text-gray-900"
+            />
+            <select
+              name="location"
+              className="px-5 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-gray-900 text-gray-600 bg-white"
+            >
+              <option value="">All Locations</option>
+              <option value="United Kingdom">United Kingdom</option>
+              <option value="Australia">Australia</option>
+              <option value="New Zealand">New Zealand</option>
+              <option value="USA">USA</option>
+              <option value="Canada">Canada</option>
+            </select>
+            <button
+              type="submit"
+              className="bg-gray-900 text-white px-8 py-3 rounded-lg font-semibold hover:bg-gray-700 transition"
+            >
+              Search
+            </button>
+          </form>
         </div>
-      </section>
 
-      {/* Stats Section */}
-      <section className="max-w-6xl mx-auto px-4 -mt-12 mb-20">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="bg-white rounded-xl shadow-lg p-6 text-center">
-            <div className="text-4xl font-bold text-blue-600 mb-2">
-              {jobCount || 0}
+        {/* Stats strip */}
+        <div className="bg-gray-50 border-t border-gray-100">
+          <div className="max-w-6xl mx-auto px-4 py-5 flex flex-wrap gap-8">
+            <div>
+              <span className="text-2xl font-bold text-gray-900">{jobCount || 0}</span>
+              <span className="text-gray-500 ml-2 text-sm">Active Jobs</span>
             </div>
-            <div className="text-gray-600">Active Jobs</div>
-          </div>
-          <div className="bg-white rounded-xl shadow-lg p-6 text-center">
-            <div className="text-4xl font-bold text-blue-600 mb-2">
-              {userCount || 0}
+            <div className="text-gray-300 hidden sm:block self-center">|</div>
+            <div>
+              <span className="text-2xl font-bold text-gray-900">{userCount || 0}</span>
+              <span className="text-gray-500 ml-2 text-sm">Professionals</span>
             </div>
-            <div className="text-gray-600">Professionals</div>
-          </div>
-          <div className="bg-white rounded-xl shadow-lg p-6 text-center">
-            <div className="text-4xl font-bold text-blue-600 mb-2">150+</div>
-            <div className="text-gray-600">CPD Courses</div>
-          </div>
-          <div className="bg-white rounded-xl shadow-lg p-6 text-center">
-            <div className="text-4xl font-bold text-blue-600 mb-2">25+</div>
-            <div className="text-gray-600">Countries</div>
+            <div className="text-gray-300 hidden sm:block self-center">|</div>
+            <div>
+              <span className="text-2xl font-bold text-gray-900">150+</span>
+              <span className="text-gray-500 ml-2 text-sm">CPD Courses</span>
+            </div>
+            <div className="text-gray-300 hidden sm:block self-center">|</div>
+            <div>
+              <span className="text-2xl font-bold text-gray-900">25+</span>
+              <span className="text-gray-500 ml-2 text-sm">Countries</span>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Latest Jobs */}
-      <section className="max-w-6xl mx-auto px-4 mb-20">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold mb-2">Latest Opportunities</h2>
-          <p className="text-xl text-gray-600">
-            Explore the newest positions from top practices worldwide
-          </p>
+      <section className="max-w-6xl mx-auto px-4 py-16">
+        <div className="flex items-end justify-between mb-10">
+          <div>
+            <p className="text-xs font-bold tracking-widest text-teal-600 uppercase mb-2">Opportunities</p>
+            <h2 className={`${serif.className} text-4xl text-gray-900`}>Latest Positions</h2>
+          </div>
+          <Link href="/jobs" className="text-sm font-semibold text-gray-900 hover:text-teal-600 transition">
+            View all →
+          </Link>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -106,109 +107,89 @@ export default async function Home() {
             <Link
               key={job.id}
               href={`/jobs/${job.id}`}
-              className="bg-white border-2 border-gray-200 rounded-xl p-6 hover:border-blue-500 hover:shadow-lg transition group"
+              className="group border border-gray-200 rounded-xl overflow-hidden hover:border-gray-900 hover:shadow-lg transition-all duration-200"
             >
-              <div className="flex justify-between items-start mb-4">
-                <div className="w-14 h-14 bg-gray-100 rounded-lg flex-shrink-0 overflow-hidden flex items-center justify-center font-bold text-blue-600">
-                  {job.featured_image ? (
-                    <img src={job.featured_image} alt={job.title} className="w-full h-full object-cover" />
-                  ) : (
-                    job.employer?.company_name?.substring(0, 2).toUpperCase() || 'CO'
-                  )}
-                </div>
-                <span className="px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-sm font-semibold">
+              <div className="h-40 bg-gray-100 overflow-hidden">
+                {job.featured_image ? (
+                  <img
+                    src={job.featured_image}
+                    alt={job.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-3xl font-bold text-gray-300">
+                    {job.employer?.company_name?.substring(0, 2).toUpperCase() || 'OJ'}
+                  </div>
+                )}
+              </div>
+              <div className="p-5">
+                <span className="text-xs font-bold tracking-wide text-teal-600 uppercase">
                   {job.job_type}
                 </span>
-              </div>
-
-              <h3 className="text-xl font-semibold mb-2 text-gray-900 group-hover:text-blue-600 transition">
-                {job.title}
-              </h3>
-              <p className="text-gray-600 mb-4">
-                {job.employer?.company_name || 'Company'}
-              </p>
-
-              <div className="flex flex-wrap gap-3 text-sm text-gray-500 pt-4 border-t">
-                <span>📍 {job.location_country}</span>
-                {job.category && <span>💼 {job.category}</span>}
+                <h3 className="font-semibold text-gray-900 mt-2 mb-1 group-hover:text-teal-600 transition line-clamp-2">
+                  {job.title}
+                </h3>
+                <p className="text-sm text-gray-500 mb-3">
+                  {job.employer?.company_name || 'Company'}
+                </p>
+                <p className="text-xs text-gray-400">
+                  📍 {job.location_city ? `${job.location_city}, ` : ''}{job.location_country}
+                </p>
               </div>
             </Link>
           ))}
         </div>
-
-        <div className="text-center mt-8">
-          <Link
-            href="/jobs"
-            className="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
-          >
-            View All Jobs
-          </Link>
-        </div>
       </section>
 
       {/* How It Works */}
-      <section className="bg-gray-50 py-20 px-4">
+      <section className="border-t border-gray-100 bg-gray-50 py-16 px-4">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-2">How It Works</h2>
-            <p className="text-xl text-gray-600">Get started in three simple steps</p>
-          </div>
+          <p className="text-xs font-bold tracking-widest text-teal-600 uppercase mb-3">Process</p>
+          <h2 className={`${serif.className} text-4xl text-gray-900 mb-12`}>How It Works</h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-blue-800 text-white rounded-full flex items-center justify-center text-3xl font-bold mx-auto mb-4">
-                1
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+            {[
+              { num: '01', title: 'Create Your Profile', desc: 'Sign up and build your professional profile with your qualifications and experience.' },
+              { num: '02', title: 'Search & Apply', desc: 'Browse opportunities worldwide and apply to positions that match your goals.' },
+              { num: '03', title: 'Get Hired', desc: 'Connect with employers, attend interviews, and land your dream osteopathic role.' },
+            ].map((step) => (
+              <div key={step.num} className="flex gap-5">
+                <div className={`${serif.className} text-5xl text-gray-200 leading-none flex-shrink-0`}>{step.num}</div>
+                <div className="pt-2">
+                  <h3 className="font-semibold text-gray-900 mb-2">{step.title}</h3>
+                  <p className="text-gray-500 text-sm leading-relaxed">{step.desc}</p>
+                </div>
               </div>
-              <h3 className="text-xl font-semibold mb-2">Create Your Profile</h3>
-              <p className="text-gray-600">
-                Sign up and build your professional profile with your qualifications and experience
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-blue-800 text-white rounded-full flex items-center justify-center text-3xl font-bold mx-auto mb-4">
-                2
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Search & Apply</h3>
-              <p className="text-gray-600">
-                Browse thousands of opportunities and apply to positions that match your goals
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-blue-800 text-white rounded-full flex items-center justify-center text-3xl font-bold mx-auto mb-4">
-                3
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Get Hired</h3>
-              <p className="text-gray-600">
-                Connect with employers, attend interviews, and land your dream osteopathic role
-              </p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="bg-gradient-to-br from-blue-600 to-blue-800 text-white py-20 px-4 text-center">
-        <h2 className="text-4xl font-bold mb-4">Ready to Take the Next Step?</h2>
-        <p className="text-xl mb-8 opacity-95">
+      <section className="bg-gray-900 text-white py-20 px-4 text-center">
+        <p className="text-xs font-bold tracking-widest text-teal-400 uppercase mb-4">Join OsteoJob</p>
+        <h2 className={`${serif.className} text-4xl md:text-5xl mb-6`}>
+          Ready to Take the Next Step?
+        </h2>
+        <p className="text-gray-400 mb-10 max-w-xl mx-auto">
           Join thousands of osteopaths finding their perfect career match
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link
             href="/jobs"
-            className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition"
+            className="bg-white text-gray-900 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition"
           >
             Browse Jobs
           </Link>
           <Link
             href="/auth/signup"
-            className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition"
+            className="border border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-gray-900 transition"
           >
-            Sign Up
+            Sign Up Free
           </Link>
         </div>
       </section>
+
     </main>
   )
 }
