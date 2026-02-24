@@ -106,7 +106,7 @@ export default async function JobsPage({
                     </div>
 
                     <div className="flex-1">
-                      <h2 className="text-xl font-semibold mb-1 group-hover:text-blue-600 transition">
+                      <h2 className="text-xl font-semibold mb-1 text-gray-900 group-hover:text-blue-600 transition">
                         {job.title}
                       </h2>
                       <p className="text-gray-600 mb-3">

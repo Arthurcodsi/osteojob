@@ -117,7 +117,7 @@ export default async function Home() {
                 </span>
               </div>
 
-              <h3 className="text-xl font-semibold mb-2 group-hover:text-blue-600 transition">
+              <h3 className="text-xl font-semibold mb-2 text-gray-900 group-hover:text-blue-600 transition">
                 {job.title}
               </h3>
               <p className="text-gray-600 mb-4">
