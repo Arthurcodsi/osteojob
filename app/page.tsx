@@ -109,8 +109,12 @@ export default async function Home() {
               className="bg-white border-2 border-gray-200 rounded-xl p-6 hover:border-blue-500 hover:shadow-lg transition group"
             >
               <div className="flex justify-between items-start mb-4">
-                <div className="w-14 h-14 bg-gray-100 rounded-lg flex items-center justify-center font-bold text-blue-600">
-                  {job.employer?.company_name?.substring(0, 2).toUpperCase() || 'CO'}
+                <div className="w-14 h-14 bg-gray-100 rounded-lg flex-shrink-0 overflow-hidden flex items-center justify-center font-bold text-blue-600">
+                  {job.featured_image ? (
+                    <img src={job.featured_image} alt={job.title} className="w-full h-full object-cover" />
+                  ) : (
+                    job.employer?.company_name?.substring(0, 2).toUpperCase() || 'CO'
+                  )}
                 </div>
                 <span className="px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-sm font-semibold">
                   {job.job_type}
