@@ -72,7 +72,7 @@ function buildEmailHtml(inviteUrl) {
         <tr>
           <td style="background:#2563eb;border-radius:12px 12px 0 0;padding:32px 40px;text-align:center;">
             <div style="display:inline-block;background:#ffffff;border-radius:50%;width:80px;height:80px;line-height:80px;text-align:center;">
-              <img src="https://osteojob-eight.vercel.app/logo.png" alt="OsteoJob" width="56" style="vertical-align:middle;" />
+              <img src="https://osteojob.com/logo.png" alt="OsteoJob" width="56" style="vertical-align:middle;" />
             </div>
           </td>
         </tr>
