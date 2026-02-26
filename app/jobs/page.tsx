@@ -144,9 +144,7 @@ export default async function JobsPage({
                         month: 'short',
                       })}
                     </div>
-                    <div className="text-xs text-gray-600">
-                      {job.view_count} views
-                    </div>
+
                   </div>
                 </div>
 
