@@ -1,20 +1,31 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
-import { cookies } from 'next/headers'
-import { createServerClient } from '@supabase/ssr'
 
-export async function POST() {
-  // Verify the caller is authenticated
-  const cookieStore = await cookies()
-  const userSupabase = createServerClient(
+export async function POST(req: NextRequest) {
+  // Get the auth token from the request cookie
+  const cookieHeader = req.headers.get('cookie') || ''
+  const tokenMatch = cookieHeader.match(/sb-[^=]+-auth-token=([^;]+)/)
+  let accessToken: string | null = null
+
+  if (tokenMatch) {
+    try {
+      const decoded = decodeURIComponent(tokenMatch[1])
+      const parsed = JSON.parse(decoded)
+      accessToken = parsed.access_token ?? parsed[0]?.access_token ?? null
+    } catch {
+      // fall through
+    }
+  }
+
+  if (!accessToken) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+
+  // Verify the token and get the user
+  const userSupabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll: () => cookieStore.getAll(),
-        setAll: () => {},
-      },
-    }
+    { global: { headers: { Authorization: `Bearer ${accessToken}` } } }
   )
 
   const { data: { user }, error: authError } = await userSupabase.auth.getUser()
@@ -40,7 +51,6 @@ export async function POST() {
   }
 
   if (existing.id === user.id) {
-    // Already linked correctly
     return NextResponse.json({ relinked: false, profile: existing })
   }
 
