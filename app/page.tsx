@@ -73,11 +73,10 @@ export default async function Home() {
 
       {/* Stats */}
       <section className="max-w-5xl mx-auto px-4 -mt-8 mb-16 relative z-10">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-3 gap-4">
           {[
             { value: jobCount || 0, label: 'Active Jobs' },
             { value: userCount || 0, label: 'Professionals' },
-            { value: '150+', label: 'CPD Courses' },
             { value: '25+', label: 'Countries' },
           ].map((stat) => (
             <div key={stat.label} className="bg-white rounded-[25px] shadow-md p-5 text-center">
