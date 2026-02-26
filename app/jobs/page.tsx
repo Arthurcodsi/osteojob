@@ -25,7 +25,14 @@ export default async function JobsPage({
     query = query.eq('job_type', params.type)
   }
 
-  const { data: jobs } = await query.order('posted_date', { ascending: false })
+  const [{ data: jobs }, { data: countryRows }] = await Promise.all([
+    query.order('posted_date', { ascending: false }),
+    supabase.from('jobs').select('location_country').eq('status', 'active'),
+  ])
+
+  const countries = [...new Set(
+    (countryRows || []).map(r => r.location_country).filter(Boolean)
+  )].sort()
 
   return (
     <div className="min-h-screen bg-[#f0f6ff] py-12 px-4">
@@ -55,14 +62,9 @@ export default async function JobsPage({
               className="px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
             >
               <option value="">All Locations</option>
-              <option value="United Kingdom">United Kingdom</option>
-              <option value="Australia">Australia</option>
-              <option value="New Zealand">New Zealand</option>
-              <option value="USA">USA</option>
-              <option value="Canada">Canada</option>
-              <option value="Ireland">Ireland</option>
-              <option value="France">France</option>
-              <option value="Spain">Spain</option>
+              {countries.map(c => (
+                <option key={c} value={c}>{c}</option>
+              ))}
             </select>
 
             <select
