@@ -459,6 +459,11 @@
   @tailwind utilities;
 }
 
+/* Fix grey input text on iOS Safari */
+input, textarea, select {
+  -webkit-text-fill-color: currentColor;
+}
+
 /* Project custom styles */
 :root {
   --background: #ffffff;
