@@ -202,20 +202,20 @@ export default function ApplyPage({ params }: { params: Promise<{ id: string }> 
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-gray-900 mb-2">
                 Full Name *
               </label>
               <input
                 type="text"
                 name="name"
                 required
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2] text-gray-900"
                 placeholder="John Doe"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-gray-900 mb-2">
                 Email *
               </label>
               <input
@@ -223,25 +223,25 @@ export default function ApplyPage({ params }: { params: Promise<{ id: string }> 
                 name="email"
                 required
                 defaultValue={user?.email}
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2] text-gray-900"
                 placeholder="you@example.com"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-gray-900 mb-2">
                 Phone Number
               </label>
               <input
                 type="tel"
                 name="phone"
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2] text-gray-900"
                 placeholder="+44 123 456 7890"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-gray-900 mb-2">
                 CV / Resume *
               </label>
               <input
@@ -251,23 +251,23 @@ export default function ApplyPage({ params }: { params: Promise<{ id: string }> 
                 onChange={(e) => setCvFile(e.target.files?.[0] || null)}
                 className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2] file:mr-4 file:py-1 file:px-4 file:rounded file:border-0 file:bg-[#F5F7FC] file:text-[#32487A] file:font-semibold hover:file:bg-[#dce8f5]"
               />
-              <p className="text-sm text-gray-500 mt-1">
+              <p className="text-sm text-gray-700 mt-1">
                 PDF, DOC or DOCX — max 5MB
               </p>
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-gray-900 mb-2">
                 Cover Letter *
               </label>
               <textarea
                 name="coverLetter"
                 required
                 rows={8}
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2] text-gray-900"
                 placeholder="Tell the employer why you're interested in this position..."
               />
-              <p className="text-sm text-gray-500 mt-1">
+              <p className="text-sm text-gray-700 mt-1">
                 Explain your relevant experience and why you'd be a great fit
               </p>
             </div>

@@ -220,8 +220,8 @@ export default function PostJobPage() {
           >
             ← Back to Dashboard
           </Link>
-          <h1 className="text-4xl font-bold mb-2">Post a New Job</h1>
-          <p className="text-xl text-gray-600">
+          <h1 className="text-4xl font-bold mb-2 text-gray-900">Post a New Job</h1>
+          <p className="text-xl text-gray-800">
             Find the perfect osteopath for your practice
           </p>
         </div>
@@ -236,21 +236,21 @@ export default function PostJobPage() {
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Job Title */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-gray-900 mb-2">
                 Job Title *
               </label>
               <input
                 type="text"
                 name="title"
                 required
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2] text-gray-900"
                 placeholder="e.g. Associate Osteopath"
               />
             </div>
 
             {/* Job Image */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-gray-900 mb-2">
                 Job Image (Optional)
               </label>
               <div className="flex items-start gap-4">
@@ -259,9 +259,9 @@ export default function PostJobPage() {
                     type="file"
                     accept="image/*"
                     onChange={handleImageChange}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2] text-gray-900"
                   />
-                  <p className="text-sm text-gray-500 mt-1">
+                  <p className="text-sm text-gray-700 mt-1">
                     Upload a company logo or photo (JPG, PNG, max 5MB)
                   </p>
                 </div>
@@ -275,13 +275,13 @@ export default function PostJobPage() {
 
             {/* Job Type */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-gray-900 mb-2">
                 Job Type *
               </label>
               <select
                 name="jobType"
                 required
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2] text-gray-900"
               >
                 <option value="">Select type...</option>
                 <option value="Full Time">Full Time</option>
@@ -294,12 +294,12 @@ export default function PostJobPage() {
 
             {/* Category/Specialty */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-gray-900 mb-2">
                 Specialty
               </label>
               <select
                 name="category"
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2] text-gray-900"
               >
                 <option value="All Specialties">All Specialties</option>
                 <option value="Structural">Structural</option>
@@ -314,13 +314,13 @@ export default function PostJobPage() {
             {/* Location */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                <label className="block text-sm font-semibold text-gray-900 mb-2">
                   Country *
                 </label>
                 <select
                   name="country"
                   required
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2] text-gray-900"
                 >
                   <option value="">Select country...</option>
                   <option value="Australia">Australia</option>
@@ -357,13 +357,13 @@ export default function PostJobPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                <label className="block text-sm font-semibold text-gray-900 mb-2">
                   City
                 </label>
                 <input
                   type="text"
                   name="city"
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2] text-gray-900"
                   placeholder="e.g. London"
                 />
               </div>
@@ -371,33 +371,33 @@ export default function PostJobPage() {
 
             {/* Salary Range */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-gray-900 mb-2">
                 Salary Range
               </label>
               <input
                 type="text"
                 name="salary"
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2] text-gray-900"
                 placeholder="e.g. £30,000 - £45,000"
               />
-              <p className="text-sm text-gray-500 mt-1">
+              <p className="text-sm text-gray-700 mt-1">
                 Optional - helps attract the right candidates
               </p>
             </div>
 
             {/* Job Description */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-gray-900 mb-2">
                 Job Description *
               </label>
               <textarea
                 name="description"
                 required
                 rows={12}
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2] text-gray-900"
                 placeholder="Describe the role, responsibilities, requirements, and what makes your practice a great place to work..."
               />
-              <p className="text-sm text-gray-500 mt-1">
+              <p className="text-sm text-gray-700 mt-1">
                 Be detailed - good descriptions attract better candidates
               </p>
             </div>
