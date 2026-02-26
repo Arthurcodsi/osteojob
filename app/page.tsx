@@ -28,9 +28,6 @@ export default async function Home() {
       {/* Hero */}
       <section className="text-white py-20 px-4" style={{ background: 'linear-gradient(135deg, #2d436f 0%, #3a5a9b 100%)' }}>
         <div className="max-w-4xl mx-auto text-center">
-          <p className="text-blue-200 text-sm font-semibold tracking-widest uppercase mb-4">
-            The Job Board for Osteopaths
-          </p>
           <h1 className={`${spartan.className} text-4xl md:text-5xl font-semibold leading-snug mb-5`}>
             Your Osteopathic Career Partner
           </h1>
