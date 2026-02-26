@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation'
 
 export default function SignupPage() {
   const router = useRouter()
-  const [userType, setUserType] = useState<'candidate' | 'employer'>('candidate')
+  const [userType, setUserType] = useState<'candidate' | 'employer'>('employer')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
