@@ -35,26 +35,39 @@ export default function ProfilePage() {
         return
       }
 
-      // No profile exists — create a basic one
+      // No profile found by id — attempt server-side re-link (trigger may not have fired)
       if (!data) {
-        const { data: newProfile, error: createError } = await supabase
-          .from('profiles')
-          .insert({
-            id: user.id,
-            email: user.email,
-            full_name: user.user_metadata?.full_name || '',
-            user_type: user.user_metadata?.user_type || 'candidate',
-          })
-          .select()
-          .single()
+        const res = await fetch('/api/relink-profile', { method: 'POST' })
+        const json = await res.json()
 
-        if (createError) {
-          setFetchError(`Could not create profile: ${createError.message}`)
+        if (!res.ok) {
+          setFetchError(`Could not load profile: ${json.error}`)
           setLoading(false)
           return
         }
 
-        data = newProfile
+        if (json.profile) {
+          data = json.profile
+        } else {
+          // Brand new user — create a fresh profile
+          const { data: newProfile, error: createError } = await supabase
+            .from('profiles')
+            .insert({
+              id: user.id,
+              email: user.email,
+              full_name: user.user_metadata?.full_name || '',
+              user_type: user.user_metadata?.user_type || 'candidate',
+            })
+            .select()
+            .single()
+
+          if (createError) {
+            setFetchError(`Could not create profile: ${createError.message}`)
+            setLoading(false)
+            return
+          }
+          data = newProfile
+        }
       }
 
       setProfile(data)
