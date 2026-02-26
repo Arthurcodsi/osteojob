@@ -459,16 +459,9 @@
   @tailwind utilities;
 }
 
-/* Force dark text on all form elements (fixes grey text on iOS/Android) */
-input, textarea, select, h1, h2, h3, h4, h5, h6 {
-  color: inherit;
+/* Fix grey input/select text on iOS/Android */
+input, textarea, select {
   -webkit-text-fill-color: currentColor;
-}
-input:not([class*="text-"]),
-textarea:not([class*="text-"]),
-select:not([class*="text-"]) {
-  color: #111827;
-  -webkit-text-fill-color: #111827;
 }
 
 /* Project custom styles */
