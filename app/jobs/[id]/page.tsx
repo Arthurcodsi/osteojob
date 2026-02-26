@@ -60,7 +60,7 @@ export default async function JobDetailPage({
 
             <div className="flex-1">
               <h1 className="text-3xl font-bold mb-2">{job.title}</h1>
-              <p className="text-xl text-gray-600 mb-4">
+              <p className="text-xl text-gray-800 mb-4">
                 {job.employer?.company_name || 'Company'}
               </p>
 
@@ -68,12 +68,12 @@ export default async function JobDetailPage({
                 <span className="px-4 py-2 bg-[#F5F7FC] text-[#32487A] rounded-full font-semibold">
                   {job.job_type}
                 </span>
-                <span className="px-4 py-2 bg-gray-100 text-gray-700 rounded-full">
+                <span className="px-4 py-2 bg-gray-100 text-gray-800 rounded-full">
                   📍 {job.location_country}
                   {job.location_city && `, ${job.location_city}`}
                 </span>
                 {job.category && (
-                  <span className="px-4 py-2 bg-gray-100 text-gray-700 rounded-full">
+                  <span className="px-4 py-2 bg-gray-100 text-gray-800 rounded-full">
                     💼 {job.category}
                   </span>
                 )}
@@ -103,7 +103,7 @@ export default async function JobDetailPage({
         {/* Job Description */}
         <div className="bg-white rounded-[25px] shadow-sm p-8 mb-6">
           <h2 className="text-2xl font-bold mb-4">Job Description</h2>
-          <div className="prose max-w-none text-gray-700 whitespace-pre-wrap">
+          <div className="prose max-w-none text-gray-800 whitespace-pre-wrap">
             {job.description}
           </div>
         </div>
@@ -114,8 +114,8 @@ export default async function JobDetailPage({
           
           <div className="space-y-4">
             <div className="flex justify-between py-3 border-b">
-              <span className="font-semibold text-gray-700">Posted</span>
-              <span className="text-gray-600">
+              <span className="font-semibold text-gray-800">Posted</span>
+              <span className="text-gray-800">
                 {new Date(job.posted_date).toLocaleDateString('en-GB', {
                   day: 'numeric',
                   month: 'long',
@@ -125,20 +125,20 @@ export default async function JobDetailPage({
             </div>
 
             <div className="flex justify-between py-3 border-b">
-              <span className="font-semibold text-gray-700">Job Type</span>
-              <span className="text-gray-600">{job.job_type}</span>
+              <span className="font-semibold text-gray-800">Job Type</span>
+              <span className="text-gray-800">{job.job_type}</span>
             </div>
 
             {job.category && (
               <div className="flex justify-between py-3 border-b">
-                <span className="font-semibold text-gray-700">Specialty</span>
-                <span className="text-gray-600">{job.category}</span>
+                <span className="font-semibold text-gray-800">Specialty</span>
+                <span className="text-gray-800">{job.category}</span>
               </div>
             )}
 
             <div className="flex justify-between py-3 border-b">
-              <span className="font-semibold text-gray-700">Location</span>
-              <span className="text-gray-600">
+              <span className="font-semibold text-gray-800">Location</span>
+              <span className="text-gray-800">
                 {job.location_country}
                 {job.location_city && `, ${job.location_city}`}
               </span>
@@ -146,14 +146,14 @@ export default async function JobDetailPage({
 
             {job.salary_range && (
               <div className="flex justify-between py-3 border-b">
-                <span className="font-semibold text-gray-700">Salary</span>
-                <span className="text-gray-600">{job.salary_range}</span>
+                <span className="font-semibold text-gray-800">Salary</span>
+                <span className="text-gray-800">{job.salary_range}</span>
               </div>
             )}
 
             <div className="flex justify-between py-3">
-              <span className="font-semibold text-gray-700">Views</span>
-              <span className="text-gray-600">{job.view_count} views</span>
+              <span className="font-semibold text-gray-800">Views</span>
+              <span className="text-gray-800">{job.view_count} views</span>
             </div>
           </div>
         </div>
@@ -171,10 +171,10 @@ export default async function JobDetailPage({
                   {job.employer.company_name || 'Company'}
                 </h3>
                 {job.employer.company_description && (
-                  <p className="text-gray-600">{job.employer.company_description}</p>
+                  <p className="text-gray-800">{job.employer.company_description}</p>
                 )}
                 {job.employer.location && (
-                  <p className="text-gray-500 mt-2">📍 {job.employer.location}</p>
+                  <p className="text-gray-700 mt-2">📍 {job.employer.location}</p>
                 )}
               </div>
             </div>
@@ -186,7 +186,7 @@ export default async function JobDetailPage({
           <h2 className="text-2xl font-bold mb-6">Similar Jobs</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* We'll fetch similar jobs later */}
-            <div className="bg-white rounded-[25px] shadow-sm p-6 text-center text-gray-500">
+            <div className="bg-white rounded-[25px] shadow-sm p-6 text-center text-gray-600">
               More jobs coming soon...
             </div>
           </div>

@@ -40,7 +40,7 @@ export default async function JobsPage({
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-4xl font-bold mb-2">Find Your Perfect Job</h1>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-gray-700">
             {jobs?.length || 0} opportunities available
           </p>
         </div>
@@ -111,7 +111,7 @@ export default async function JobsPage({
                       <h2 className="text-xl font-semibold mb-1 text-gray-900 group-hover:text-[#32487A] transition">
                         {job.title}
                       </h2>
-                      <p className="text-gray-600 mb-3">
+                      <p className="text-gray-800 mb-3">
                         {job.employer?.company_name || 'Company'}
                       </p>
 
@@ -119,12 +119,12 @@ export default async function JobsPage({
                         <span className="px-3 py-1 bg-[#F5F7FC] text-[#32487A] rounded-full font-medium">
                           {job.job_type}
                         </span>
-                        <span className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full">
+                        <span className="px-3 py-1 bg-gray-100 text-gray-800 rounded-full">
                           📍 {job.location_country}
                           {job.location_city && `, ${job.location_city}`}
                         </span>
                         {job.category && (
-                          <span className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full">
+                          <span className="px-3 py-1 bg-gray-100 text-gray-800 rounded-full">
                             💼 {job.category}
                           </span>
                         )}
@@ -138,20 +138,20 @@ export default async function JobsPage({
                   </div>
 
                   <div className="text-right flex-shrink-0 ml-4">
-                    <div className="text-sm text-gray-500 mb-2">
+                    <div className="text-sm text-gray-700 mb-2">
                       {new Date(job.posted_date).toLocaleDateString('en-GB', {
                         day: 'numeric',
                         month: 'short',
                       })}
                     </div>
-                    <div className="text-xs text-gray-400">
+                    <div className="text-xs text-gray-600">
                       {job.view_count} views
                     </div>
                   </div>
                 </div>
 
                 {job.excerpt && (
-                  <p className="mt-4 text-gray-600 line-clamp-2">
+                  <p className="mt-4 text-gray-700 line-clamp-2">
                     {job.excerpt}
                   </p>
                 )}
@@ -162,7 +162,7 @@ export default async function JobsPage({
           <div className="bg-white rounded-[25px] shadow-sm p-12 text-center">
             <div className="text-6xl mb-4">🔍</div>
             <h3 className="text-2xl font-semibold mb-2">No jobs found</h3>
-            <p className="text-gray-600 mb-6">
+            <p className="text-gray-700 mb-6">
               Try adjusting your filters or search terms
             </p>
             <Link
