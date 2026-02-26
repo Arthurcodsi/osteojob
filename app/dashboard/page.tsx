@@ -119,7 +119,7 @@ export default function DashboardPage() {
             <div className="flex gap-3">
               <Link
                 href="/"
-                className="px-4 py-2 border-2 border-gray-300 rounded-lg font-semibold hover:border-[#4b8ec2] transition"
+                className="px-4 py-2 border-2 border-gray-300 rounded-lg font-semibold text-gray-900 hover:border-[#4b8ec2] transition"
               >
                 Home
               </Link>
