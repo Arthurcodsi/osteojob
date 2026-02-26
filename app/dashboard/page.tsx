@@ -163,7 +163,7 @@ export default function DashboardPage() {
 
             {/* Your Jobs */}
             <div className="bg-white rounded-[25px] shadow-sm p-6">
-              <h2 className="text-2xl font-bold mb-4">Your Job Listings</h2>
+              <h2 className="text-2xl font-bold mb-4 text-gray-900">Your Job Listings</h2>
 
               {jobs.length > 0 ? (
                 <div className="space-y-4">
@@ -174,7 +174,7 @@ export default function DashboardPage() {
                     >
                       <div className="flex justify-between items-start">
                         <div>
-                          <h3 className="text-lg font-semibold">{job.title}</h3>
+                          <h3 className="text-lg font-semibold text-gray-900">{job.title}</h3>
                           <p className="text-gray-800">
                             {job.location_country} • {job.job_type}
                           </p>
@@ -247,7 +247,7 @@ export default function DashboardPage() {
 
             {/* Your Applications */}
             <div className="bg-white rounded-[25px] shadow-sm p-6">
-              <h2 className="text-2xl font-bold mb-4">Your Applications</h2>
+              <h2 className="text-2xl font-bold mb-4 text-gray-900">Your Applications</h2>
 
               {applications.length > 0 ? (
                 <div className="space-y-4">
@@ -258,7 +258,7 @@ export default function DashboardPage() {
                     >
                       <div className="flex justify-between items-start">
                         <div>
-                          <h3 className="text-lg font-semibold">
+                          <h3 className="text-lg font-semibold text-gray-900">
                             {app.job?.title}
                           </h3>
                           <p className="text-gray-800">
