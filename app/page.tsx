@@ -6,21 +6,21 @@ const spartan = League_Spartan({ weight: ['400', '600', '700'], subsets: ['latin
 const jost = Jost({ weight: ['400', '500'], subsets: ['latin'] })
 
 export default async function Home() {
-  const { data: jobs } = await supabase
-    .from('jobs')
-    .select('*, employer:profiles!employer_id(*)')
-    .eq('status', 'active')
-    .order('posted_date', { ascending: false })
-    .limit(6)
+  const [
+    { data: jobs },
+    { count: jobCount },
+    { count: userCount },
+    { data: countryRows },
+  ] = await Promise.all([
+    supabase.from('jobs').select('*, employer:profiles!employer_id(*)').eq('status', 'active').order('posted_date', { ascending: false }).limit(6),
+    supabase.from('jobs').select('*', { count: 'exact', head: true }).eq('status', 'active'),
+    supabase.from('profiles').select('*', { count: 'exact', head: true }),
+    supabase.from('jobs').select('location_country').eq('status', 'active'),
+  ])
 
-  const { count: jobCount } = await supabase
-    .from('jobs')
-    .select('*', { count: 'exact', head: true })
-    .eq('status', 'active')
-
-  const { count: userCount } = await supabase
-    .from('profiles')
-    .select('*', { count: 'exact', head: true })
+  const countries = [...new Set(
+    (countryRows || []).map(r => r.location_country).filter(Boolean)
+  )].sort()
 
   return (
     <main className={`min-h-screen ${jost.className}`} style={{ background: '#f0f6ff' }}>
@@ -51,11 +51,9 @@ export default async function Home() {
                 style={{ background: '#F5F7FC' }}
               >
                 <option value="">All Locations</option>
-                <option value="United Kingdom">United Kingdom</option>
-                <option value="Australia">Australia</option>
-                <option value="New Zealand">New Zealand</option>
-                <option value="USA">USA</option>
-                <option value="Canada">Canada</option>
+                {countries.map(c => (
+                  <option key={c} value={c}>{c}</option>
+                ))}
               </select>
               <button
                 type="submit"
