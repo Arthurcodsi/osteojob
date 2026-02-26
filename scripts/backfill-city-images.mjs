@@ -55,22 +55,23 @@ async function main() {
   for (const job of jobs) {
     const imageUrl = await fetchCityImage(job.location_city, job.location_country)
 
-    if (!imageUrl) {
-      console.log(`⏭  ${job.title} (${job.location_city || job.location_country}) — no Wikipedia image found`)
-      continue
-    }
+    const finalUrl = imageUrl || 'https://osteojob.com/logo.png'
 
     const updateRes = await fetch(
       `${SUPABASE_URL}/rest/v1/jobs?id=eq.${job.id}`,
       {
         method: 'PATCH',
         headers,
-        body: JSON.stringify({ featured_image: imageUrl }),
+        body: JSON.stringify({ featured_image: finalUrl }),
       }
     )
 
     if (updateRes.ok) {
-      console.log(`✅ ${job.title} (${job.location_city || job.location_country}) — image set`)
+      if (imageUrl) {
+        console.log(`✅ ${job.title} (${job.location_city || job.location_country}) — city image set`)
+      } else {
+        console.log(`🏷  ${job.title} (${job.location_city || job.location_country}) — logo set as fallback`)
+      }
     } else {
       console.log(`❌ ${job.title} — update failed`)
     }
