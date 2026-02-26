@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
 
     // Send email via Zoho SMTP
     const transporter = nodemailer.createTransport({
-      host: smtpHost || 'smtp.zoho.eu',
+      host: smtpHost || 'smtp.zoho.com',
       port: 587,
       secure: false,
       auth: { user: smtpUser, pass: smtpPass },
