@@ -88,7 +88,7 @@ export default function DashboardPage() {
       <div className="min-h-screen bg-[#f0f6ff] flex items-center justify-center">
         <div className="text-center">
           <div className="text-4xl mb-4">⏳</div>
-          <p className="text-gray-600">Loading your dashboard...</p>
+          <p className="text-gray-800">Loading your dashboard...</p>
         </div>
       </div>
     )
@@ -108,7 +108,7 @@ export default function DashboardPage() {
               <h1 className="text-3xl font-bold text-gray-900">
                 Welcome back, {profile.full_name}! 👋
               </h1>
-              <p className="text-gray-600 mt-1">
+              <p className="text-gray-800 mt-1">
                 {profile.user_type === 'employer' ? (
                   <>Managing jobs for {profile.company_name}</>
                 ) : (
@@ -150,14 +150,14 @@ export default function DashboardPage() {
                 <div className="text-3xl font-bold text-[#32487A] mb-2">
                   {jobs.length}
                 </div>
-                <div className="text-gray-600">Active Jobs</div>
+                <div className="text-gray-800">Active Jobs</div>
               </div>
 
               <div className="bg-white p-6 rounded-[25px] shadow-sm text-center">
                 <div className="text-3xl font-bold text-[#32487A] mb-2">
                   {jobs.reduce((sum, job) => sum + job.application_count, 0)}
                 </div>
-                <div className="text-gray-600">Total Applications</div>
+                <div className="text-gray-800">Total Applications</div>
               </div>
             </div>
 
@@ -175,10 +175,10 @@ export default function DashboardPage() {
                       <div className="flex justify-between items-start">
                         <div>
                           <h3 className="text-lg font-semibold">{job.title}</h3>
-                          <p className="text-gray-600">
+                          <p className="text-gray-800">
                             {job.location_country} • {job.job_type}
                           </p>
-                          <div className="flex gap-4 mt-2 text-sm text-gray-500">
+                          <div className="flex gap-4 mt-2 text-sm text-gray-700">
                             <span>{job.view_count} views</span>
                             <span>{job.application_count} applications</span>
                           </div>
@@ -202,7 +202,7 @@ export default function DashboardPage() {
                   ))}
                 </div>
               ) : (
-                <div className="text-center py-12 text-gray-500">
+                <div className="text-center py-12 text-gray-700">
                   <div className="text-6xl mb-4">📝</div>
                   <p className="mb-4">You haven't posted any jobs yet</p>
                   <Link
@@ -234,14 +234,14 @@ export default function DashboardPage() {
                 <div className="text-3xl font-bold text-[#32487A] mb-2">
                   {applications.length}
                 </div>
-                <div className="text-gray-600">Applications Sent</div>
+                <div className="text-gray-800">Applications Sent</div>
               </div>
 
               <div className="bg-white p-6 rounded-[25px] shadow-sm text-center">
                 <div className="text-3xl font-bold text-green-600 mb-2">
                   {applications.filter(a => a.status === 'shortlisted').length}
                 </div>
-                <div className="text-gray-600">Shortlisted</div>
+                <div className="text-gray-800">Shortlisted</div>
               </div>
             </div>
 
@@ -261,10 +261,10 @@ export default function DashboardPage() {
                           <h3 className="text-lg font-semibold">
                             {app.job?.title}
                           </h3>
-                          <p className="text-gray-600">
+                          <p className="text-gray-800">
                             {app.job?.location_country}
                           </p>
-                          <p className="text-sm text-gray-500 mt-2">
+                          <p className="text-sm text-gray-700 mt-2">
                             Applied {new Date(app.applied_at).toLocaleDateString()}
                           </p>
                         </div>
@@ -276,7 +276,7 @@ export default function DashboardPage() {
                               ? 'bg-green-100 text-green-700'
                               : app.status === 'reviewed'
                               ? 'bg-[#dce8f5] text-[#32487A]'
-                              : 'bg-gray-100 text-gray-700'
+                              : 'bg-gray-100 text-gray-800'
                           }`}
                         >
                           {app.status}
@@ -286,7 +286,7 @@ export default function DashboardPage() {
                   ))}
                 </div>
               ) : (
-                <div className="text-center py-12 text-gray-500">
+                <div className="text-center py-12 text-gray-700">
                   <div className="text-6xl mb-4">📋</div>
                   <p className="mb-4">You haven't applied to any jobs yet</p>
                   <Link
