@@ -39,7 +39,7 @@ export default async function JobsPage({
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-2">Find Your Perfect Job</h1>
+          <h1 className="text-4xl font-bold mb-2 text-gray-900">Find Your Perfect Job</h1>
           <p className="text-xl text-gray-700">
             {jobs?.length || 0} opportunities available
           </p>
@@ -53,13 +53,13 @@ export default async function JobsPage({
               name="search"
               placeholder="Search jobs..."
               defaultValue={params.search}
-              className="px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
+              className="px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2] text-gray-900"
             />
-            
+
             <select
               name="location"
               defaultValue={params.location}
-              className="px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
+              className="px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2] text-gray-900"
             >
               <option value="">All Locations</option>
               {countries.map(c => (
@@ -70,7 +70,7 @@ export default async function JobsPage({
             <select
               name="type"
               defaultValue={params.type}
-              className="px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
+              className="px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2] text-gray-900"
             >
               <option value="">All Types</option>
               <option value="Full Time">Full Time</option>
