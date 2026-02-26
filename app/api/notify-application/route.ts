@@ -65,7 +65,7 @@ export async function POST(req: NextRequest) {
                 <!-- Header -->
                 <tr>
                   <td style="background:#2563eb;border-radius:12px 12px 0 0;padding:28px 40px;text-align:center;">
-                    <img src="https://osteojob-eight.vercel.app/logo.png" alt="OsteoJob" width="160" style="display:block;margin:0 auto 10px;max-width:160px;" />
+                    <img src="https://osteojob.com/logo.png" alt="OsteoJob" width="160" style="display:block;margin:0 auto 10px;max-width:160px;" />
                     <div style="color:#bfdbfe;font-size:13px;">New Job Application</div>
                   </td>
                 </tr>
