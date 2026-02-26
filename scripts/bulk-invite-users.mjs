@@ -146,7 +146,7 @@ async function inviteUser(email) {
 
   // Send branded email
   await transporter.sendMail({
-    from: `OsteoJob <${process.env.ZOHO_SMTP_USER}>`,
+    from: `OsteoJob <contact@osteojob.com>`,
     to: email,
     subject: 'Access your OsteoJob account',
     html: buildEmailHtml(inviteUrl),

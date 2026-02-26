@@ -51,7 +51,7 @@ export async function POST(req: NextRequest) {
     })
 
     await transporter.sendMail({
-      from: `OsteoJob <${smtpUser}>`,
+      from: `OsteoJob <contact@osteojob.com>`,
       to: employerEmail,
       subject: `New application for ${job.title} – OsteoJob`,
       html: `
