@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server'
-import nodemailer from 'nodemailer'
 import { createClient } from '@supabase/supabase-js'
 
 export async function POST(req: NextRequest) {
@@ -7,18 +6,11 @@ export async function POST(req: NextRequest) {
     const { jobId, applicantName, applicantEmail, applicantPhone, coverLetter, cvUrl } =
       await req.json()
 
-    // Skip silently if SMTP not configured yet
-    const smtpUser = process.env.ZOHO_SMTP_USER
-    const smtpPass = process.env.ZOHO_SMTP_PASS
-    const smtpHost = process.env.ZOHO_SMTP_HOST
+    const resendApiKey = process.env.RESEND_API_KEY
     const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
 
-    if (
-      !smtpUser || smtpUser.includes('PASTE') ||
-      !smtpPass || smtpPass.includes('PASTE') ||
-      !serviceRoleKey || serviceRoleKey.includes('PASTE')
-    ) {
-      return NextResponse.json({ skipped: true, reason: 'SMTP not configured' })
+    if (!resendApiKey || !serviceRoleKey) {
+      return NextResponse.json({ skipped: true, reason: 'Email not configured' })
     }
 
     // Fetch job + employer email using service role key
@@ -42,19 +34,18 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Employer email not found' }, { status: 404 })
     }
 
-    // Send email via Zoho SMTP
-    const transporter = nodemailer.createTransport({
-      host: smtpHost || 'smtp.zoho.com',
-      port: 587,
-      secure: false,
-      auth: { user: smtpUser, pass: smtpPass },
-    })
-
-    await transporter.sendMail({
-      from: `OsteoJob <contact@osteojob.com>`,
-      to: employerEmail,
-      subject: `New application for ${job.title} – OsteoJob`,
-      html: `
+    // Send email via Resend
+    const emailRes = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${resendApiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: 'OsteoJob <contact@osteojob.com>',
+        to: employerEmail,
+        subject: `New application for ${job.title} – OsteoJob`,
+        html: `
         <!DOCTYPE html>
         <html>
         <body style="margin:0;padding:0;background:#f3f4f6;font-family:Arial,Helvetica,sans-serif;">
@@ -137,7 +128,13 @@ export async function POST(req: NextRequest) {
         </body>
         </html>
       `,
+      }),
     })
+
+    if (!emailRes.ok) {
+      const err = await emailRes.json()
+      throw new Error(err.message || 'Resend API error')
+    }
 
     return NextResponse.json({ success: true })
   } catch (err: any) {

@@ -9,7 +9,6 @@
  */
 
 import { createClient } from '@supabase/supabase-js'
-import nodemailer from 'nodemailer'
 import { config } from 'dotenv'
 import { resolve, dirname } from 'path'
 import { fileURLToPath } from 'url'
@@ -55,16 +54,6 @@ const inviteUrl = linkData.properties?.action_link
 console.log('✅ Invite link generated')
 
 // ── 3. Send branded email ─────────────────────────────────────────────────────
-const transporter = nodemailer.createTransport({
-  host: process.env.ZOHO_SMTP_HOST || 'smtp.gmail.com',
-  port: 587,
-  secure: false,
-  auth: {
-    user: process.env.ZOHO_SMTP_USER,
-    pass: process.env.ZOHO_SMTP_PASS,
-  },
-})
-
 const html = `
 <!DOCTYPE html>
 <html>
@@ -133,11 +122,23 @@ const html = `
 </html>
 `
 
-await transporter.sendMail({
-  from: `OsteoJob <${process.env.ZOHO_SMTP_USER}>`,
-  to: email,
-  subject: 'Access your OsteoJob account',
-  html,
+const res = await fetch('https://api.resend.com/emails', {
+  method: 'POST',
+  headers: {
+    'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    from: 'OsteoJob <contact@osteojob.com>',
+    to: email,
+    subject: 'Access your OsteoJob account',
+    html,
+  }),
 })
+if (!res.ok) {
+  const err = await res.json()
+  console.error('❌ Resend error:', err.message)
+  process.exit(1)
+}
 
 console.log(`📧 Invite email sent to ${email}`)

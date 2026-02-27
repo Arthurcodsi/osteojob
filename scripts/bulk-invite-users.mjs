@@ -16,7 +16,6 @@
  */
 
 import { createClient } from '@supabase/supabase-js'
-import nodemailer from 'nodemailer'
 import { config } from 'dotenv'
 import { resolve, dirname } from 'path'
 import { fileURLToPath } from 'url'
@@ -26,6 +25,7 @@ config({ path: resolve(__dirname, '..', '.env.local') })
 
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL
 const SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY
+const RESEND_API_KEY = process.env.RESEND_API_KEY
 
 if (!SUPABASE_URL || !SERVICE_ROLE_KEY) {
   console.error('❌ Missing credentials.')
@@ -33,19 +33,29 @@ if (!SUPABASE_URL || !SERVICE_ROLE_KEY) {
   process.exit(1)
 }
 
+if (!RESEND_API_KEY) {
+  console.error('❌ Missing RESEND_API_KEY in .env.local')
+  process.exit(1)
+}
+
 const supabase = createClient(SUPABASE_URL, SERVICE_ROLE_KEY, {
   auth: { autoRefreshToken: false, persistSession: false }
 })
 
-const transporter = nodemailer.createTransport({
-  host: process.env.ZOHO_SMTP_HOST || 'smtp.gmail.com',
-  port: 587,
-  secure: false,
-  auth: {
-    user: process.env.ZOHO_SMTP_USER,
-    pass: process.env.ZOHO_SMTP_PASS,
-  },
-})
+async function sendEmail(to, subject, html) {
+  const res = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${RESEND_API_KEY}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ from: 'OsteoJob <contact@osteojob.com>', to, subject, html }),
+  })
+  if (!res.ok) {
+    const err = await res.json()
+    throw new Error(err.message || 'Resend API error')
+  }
+}
 
 // Delay between invites to avoid hitting Supabase rate limits
 const DELAY_MS = 1500
@@ -145,12 +155,7 @@ async function inviteUser(email) {
   if (!inviteUrl) return 'error'
 
   // Send branded email
-  await transporter.sendMail({
-    from: `OsteoJob <contact@osteojob.com>`,
-    to: email,
-    subject: 'Access your OsteoJob account',
-    html: buildEmailHtml(inviteUrl),
-  })
+  await sendEmail(email, 'Access your OsteoJob account', buildEmailHtml(inviteUrl))
 
   return 'invited'
 }
@@ -196,23 +201,52 @@ async function processGroup(profiles, userType) {
 async function main() {
   console.log('🚀 Starting bulk invite...\n')
 
-  const { data: profiles, error } = await supabase
+  // Get employer IDs that have actual jobs (the real employers from WordPress)
+  const { data: jobRows, error: jobsError } = await supabase
+    .from('jobs')
+    .select('employer_id')
+  if (jobsError) {
+    console.error('❌ Failed to fetch jobs:', jobsError.message)
+    process.exit(1)
+  }
+  const employerIdsWithJobs = [...new Set(jobRows.map(j => j.employer_id))]
+
+  // Fetch profiles for those employers
+  const { data: employerProfiles, error: empError } = await supabase
     .from('profiles')
     .select('email, user_type')
-    .order('user_type')
-
-  if (error) {
-    console.error('❌ Failed to fetch profiles:', error.message)
+    .in('id', employerIdsWithJobs)
+    .neq('email', 'employers@osteojob.com') // skip the aggregate import account
+  if (empError) {
+    console.error('❌ Failed to fetch employer profiles:', empError.message)
     process.exit(1)
   }
 
-  const employers = profiles.filter(p => p.user_type === 'employer')
-  const candidates = profiles.filter(p => p.user_type === 'candidate')
+  // Fetch all profiles in batches (Supabase default limit is 1000)
+  let allProfiles = []
+  let from = 0
+  const batchSize = 1000
+  while (true) {
+    const { data, error } = await supabase
+      .from('profiles')
+      .select('email, user_type')
+      .range(from, from + batchSize - 1)
+    if (error) {
+      console.error('❌ Failed to fetch profiles:', error.message)
+      process.exit(1)
+    }
+    allProfiles = allProfiles.concat(data)
+    if (data.length < batchSize) break
+    from += batchSize
+  }
+
+  const employers = employerProfiles
+  const candidates = allProfiles.filter(p => p.user_type === 'candidate')
 
   console.log(`Found ${employers.length} employers and ${candidates.length} candidates`)
 
   await processGroup(employers, 'employers')
-  await processGroup(candidates, 'candidates')
+  // await processGroup(candidates, 'candidates')
 
   console.log('\n' + '='.repeat(60))
   console.log('📈 Summary')

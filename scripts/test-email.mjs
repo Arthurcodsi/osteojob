@@ -3,7 +3,6 @@
 // Get a jobId from your Supabase jobs table
 
 import { createClient } from '@supabase/supabase-js'
-import nodemailer from 'nodemailer'
 import * as dotenv from 'dotenv'
 import { fileURLToPath } from 'url'
 import { dirname, join } from 'path'
@@ -17,14 +16,14 @@ if (!jobId) {
   process.exit(1)
 }
 
-const { ZOHO_SMTP_HOST, ZOHO_SMTP_USER, ZOHO_SMTP_PASS, SUPABASE_SERVICE_ROLE_KEY, NEXT_PUBLIC_SUPABASE_URL } = process.env
+const { RESEND_API_KEY, SUPABASE_SERVICE_ROLE_KEY, NEXT_PUBLIC_SUPABASE_URL } = process.env
 
 console.log('\n=== ENV CHECK ===')
-console.log('ZOHO_SMTP_HOST:', ZOHO_SMTP_HOST || '❌ MISSING')
-console.log('ZOHO_SMTP_USER:', ZOHO_SMTP_USER || '❌ MISSING')
-console.log('ZOHO_SMTP_PASS:', ZOHO_SMTP_PASS ? '✅ set' : '❌ MISSING')
+console.log('RESEND_API_KEY:', RESEND_API_KEY ? '✅ set' : '❌ MISSING')
 console.log('SUPABASE_SERVICE_ROLE_KEY:', SUPABASE_SERVICE_ROLE_KEY ? '✅ set' : '❌ MISSING')
 console.log('SUPABASE_URL:', NEXT_PUBLIC_SUPABASE_URL || '❌ MISSING')
+
+if (!RESEND_API_KEY) { console.error('\n❌ Missing RESEND_API_KEY'); process.exit(1) }
 
 console.log('\n=== SUPABASE QUERY ===')
 const supabase = createClient(NEXT_PUBLIC_SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY)
@@ -53,31 +52,24 @@ if (!employerEmail) {
   process.exit(1)
 }
 
-console.log('\n=== SMTP TEST ===')
-const transporter = nodemailer.createTransport({
-  host: ZOHO_SMTP_HOST || 'smtp.zoho.com',
-  port: 587,
-  secure: false,
-  auth: { user: ZOHO_SMTP_USER, pass: ZOHO_SMTP_PASS },
-})
-
-try {
-  await transporter.verify()
-  console.log('✅ SMTP connection OK')
-} catch (err) {
-  console.error('❌ SMTP connection failed:', err.message)
-  process.exit(1)
-}
-
-console.log('\n=== SENDING TEST EMAIL ===')
-try {
-  await transporter.sendMail({
-    from: `OsteoJob <contact@osteojob.com>`,
+console.log('\n=== SENDING TEST EMAIL via Resend ===')
+const res = await fetch('https://api.resend.com/emails', {
+  method: 'POST',
+  headers: {
+    'Authorization': `Bearer ${RESEND_API_KEY}`,
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    from: 'OsteoJob <contact@osteojob.com>',
     to: employerEmail,
     subject: `[TEST] New application for ${job.title} – OsteoJob`,
     html: `<p>This is a test email to confirm the notification system works.</p><p>Job: <strong>${job.title}</strong></p><p>Employer email: ${employerEmail}</p>`,
-  })
+  }),
+})
+
+if (res.ok) {
   console.log(`✅ Test email sent to: ${employerEmail}`)
-} catch (err) {
+} else {
+  const err = await res.json()
   console.error('❌ Email send failed:', err.message)
 }
