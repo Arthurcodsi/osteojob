@@ -103,7 +103,7 @@ export default function SignupPage() {
                     className={`p-4 rounded-lg border-2 font-semibold transition ${
                       userType === 'candidate'
                         ? 'border-[#32487A] bg-[#F5F7FC] text-[#32487A]'
-                        : 'border-gray-200 hover:border-gray-300'
+                        : 'border-gray-200 hover:border-gray-300 text-gray-900'
                     }`}
                   >
                     👤 Candidate
@@ -117,7 +117,7 @@ export default function SignupPage() {
                     className={`p-4 rounded-lg border-2 font-semibold transition ${
                       userType === 'employer'
                         ? 'border-[#32487A] bg-[#F5F7FC] text-[#32487A]'
-                        : 'border-gray-200 hover:border-gray-300'
+                        : 'border-gray-200 hover:border-gray-300 text-gray-900'
                     }`}
                   >
                     🏢 Employer
