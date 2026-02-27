@@ -70,7 +70,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Address</h3>
-                    <p className="text-gray-600">
+                    <p className="text-gray-800">
                       RM 1104, Crawford House<br />
                       Hong Kong
                     </p>
@@ -83,7 +83,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Business Hours</h3>
-                    <p className="text-gray-600">
+                    <p className="text-gray-800">
                       Monday - Friday<br />
                       9:00 AM - 6:00 PM (HKT)
                     </p>
@@ -134,7 +134,7 @@ export default function ContactPage() {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    <label className="block text-sm font-semibold text-gray-800 mb-2">
                       Your Name *
                     </label>
                     <input
@@ -143,13 +143,13 @@ export default function ContactPage() {
                       required
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
+                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2] text-gray-900"
                       placeholder="John Doe"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    <label className="block text-sm font-semibold text-gray-800 mb-2">
                       Email Address *
                     </label>
                     <input
@@ -158,14 +158,14 @@ export default function ContactPage() {
                       required
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
+                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2] text-gray-900"
                       placeholder="you@example.com"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  <label className="block text-sm font-semibold text-gray-800 mb-2">
                     Subject *
                   </label>
                   <select
@@ -173,7 +173,7 @@ export default function ContactPage() {
                     required
                     value={formData.subject}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2] text-gray-900"
                   >
                     <option value="">Select a subject...</option>
                     <option value="general">General Inquiry</option>
@@ -187,7 +187,7 @@ export default function ContactPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  <label className="block text-sm font-semibold text-gray-800 mb-2">
                     Message *
                   </label>
                   <textarea
@@ -196,7 +196,7 @@ export default function ContactPage() {
                     value={formData.message}
                     onChange={handleChange}
                     rows={6}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2] text-gray-900"
                     placeholder="Tell us how we can help..."
                   />
                 </div>
@@ -221,28 +221,28 @@ export default function ContactPage() {
           <div className="space-y-6">
             <div className="border-b pb-6">
               <h3 className="text-lg font-semibold mb-2">How do I post a job?</h3>
-              <p className="text-gray-600">
+              <p className="text-gray-800">
                 Create an employer account, then click "Post Job" in the header. Fill out the job details 
                 and your listing will go live immediately.
               </p>
             </div>
             <div className="border-b pb-6">
               <h3 className="text-lg font-semibold mb-2">How much does it cost?</h3>
-              <p className="text-gray-600">
+              <p className="text-gray-800">
                 Browsing jobs and creating a candidate account is completely free. Job posting prices 
                 vary based on duration and features. Contact us for current pricing.
               </p>
             </div>
             <div className="border-b pb-6">
               <h3 className="text-lg font-semibold mb-2">How do I apply for jobs?</h3>
-              <p className="text-gray-600">
+              <p className="text-gray-800">
                 Create a candidate account, browse jobs, and click "Apply Now" on any position. 
                 Your application goes directly to the employer.
               </p>
             </div>
             <div className="border-b pb-6">
               <h3 className="text-lg font-semibold mb-2">Can I edit my job posting?</h3>
-              <p className="text-gray-600">
+              <p className="text-gray-800">
                 Yes! Log in to your dashboard, find your job listing, and click "Edit" to make changes.
               </p>
             </div>
