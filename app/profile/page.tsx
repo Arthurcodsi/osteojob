@@ -186,7 +186,7 @@ export default function ProfilePage() {
                   type="text"
                   name="full_name"
                   defaultValue={profile.full_name || ''}
-                  className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
+                  className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2] text-gray-900"
                   placeholder="Your full name"
                 />
               </div>
@@ -197,7 +197,7 @@ export default function ProfilePage() {
                   type="tel"
                   name="phone"
                   defaultValue={profile.phone || ''}
-                  className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
+                  className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2] text-gray-900"
                   placeholder="+1 234 567 890"
                 />
               </div>
@@ -208,7 +208,7 @@ export default function ProfilePage() {
                   type="text"
                   name="location"
                   defaultValue={profile.location || ''}
-                  className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
+                  className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2] text-gray-900"
                   placeholder="City, Country"
                 />
               </div>
@@ -236,7 +236,7 @@ export default function ProfilePage() {
                   type="url"
                   name="website"
                   defaultValue={profile.website || ''}
-                  className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
+                  className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2] text-gray-900"
                   placeholder="https://yourwebsite.com"
                 />
               </div>
@@ -247,7 +247,7 @@ export default function ProfilePage() {
                   type="url"
                   name="linkedin_url"
                   defaultValue={profile.linkedin_url || ''}
-                  className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
+                  className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2] text-gray-900"
                   placeholder="https://linkedin.com/in/yourprofile"
                 />
               </div>
@@ -265,7 +265,7 @@ export default function ProfilePage() {
                     type="text"
                     name="qualifications"
                     defaultValue={profile.qualifications || ''}
-                    className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
+                    className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2] text-gray-900"
                     placeholder="e.g. BSc Osteopathy, GOsC registered"
                   />
                 </div>
@@ -278,7 +278,7 @@ export default function ProfilePage() {
                     defaultValue={profile.experience_years || ''}
                     min={0}
                     max={50}
-                    className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
+                    className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2] text-gray-900"
                     placeholder="0"
                   />
                 </div>
@@ -297,7 +297,7 @@ export default function ProfilePage() {
                     type="text"
                     name="company_name"
                     defaultValue={profile.company_name || ''}
-                    className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
+                    className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2] text-gray-900"
                     placeholder="Your clinic or practice name"
                   />
                 </div>
@@ -334,7 +334,7 @@ export default function ProfilePage() {
                     type="text"
                     name="company_address"
                     defaultValue={profile.company_address || ''}
-                    className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
+                    className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2] text-gray-900"
                     placeholder="123 Main St, City, Country"
                   />
                 </div>

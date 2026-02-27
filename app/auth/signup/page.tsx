@@ -143,7 +143,7 @@ export default function SignupPage() {
                     type="text"
                     name="fullName"
                     required
-                    className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
+                    className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2] text-gray-900"
                     placeholder="John Doe"
                   />
                 </div>
@@ -157,7 +157,7 @@ export default function SignupPage() {
                       type="text"
                       name="companyName"
                       required
-                      className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
+                      className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2] text-gray-900"
                       placeholder="Your Practice Name"
                     />
                   </div>
@@ -171,7 +171,7 @@ export default function SignupPage() {
                     type="email"
                     name="email"
                     required
-                    className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
+                    className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2] text-gray-900"
                     placeholder="you@example.com"
                   />
                 </div>
@@ -185,7 +185,7 @@ export default function SignupPage() {
                     name="password"
                     required
                     minLength={6}
-                    className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2]"
+                    className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#4b8ec2] text-gray-900"
                     placeholder="••••••••"
                   />
                   <p className="text-xs text-gray-500 mt-1">
