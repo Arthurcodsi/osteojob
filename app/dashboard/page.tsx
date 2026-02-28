@@ -20,7 +20,8 @@ export default function DashboardPage() {
   const checkUser = async () => {
     try {
       // Check if user is logged in
-      const { data: { user } } = await supabase.auth.getUser()
+      const { data: { session } } = await supabase.auth.getSession()
+      const user = session?.user
 
       if (!user) {
         router.push('/auth/login')
