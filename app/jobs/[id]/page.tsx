@@ -1,7 +1,6 @@
 ﻿import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
-import SaveJobButton from '@/app/components/SaveJobButton'
 
 export default async function JobDetailPage({
   params,
@@ -95,7 +94,6 @@ export default async function JobDetailPage({
             >
               Apply Now
             </Link>
-            <SaveJobButton jobId={job.id} />
           </div>
         </div>
 
