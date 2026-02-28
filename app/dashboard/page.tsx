@@ -84,14 +84,24 @@ export default function DashboardPage() {
 
           setApplications(appsData || [])
 
-          // Fetch saved jobs
-          const { data: savedData } = await supabase
+          // Fetch saved jobs (two queries — no FK constraint on existing table)
+          const { data: savedRows } = await supabase
             .from('saved_jobs')
-            .select('*, job:jobs(*)')
+            .select('*')
             .eq('candidate_id', user.id)
             .order('created_at', { ascending: false })
 
-          setSavedJobs(savedData || [])
+          if (savedRows && savedRows.length > 0) {
+            const jobIds = savedRows.map((s: any) => s.job_id)
+            const { data: savedJobDetails } = await supabase
+              .from('jobs')
+              .select('*')
+              .in('id', jobIds)
+            const jobMap = Object.fromEntries((savedJobDetails || []).map((j: any) => [j.id, j]))
+            setSavedJobs(savedRows.map((s: any) => ({ ...s, job: jobMap[s.job_id] || null })))
+          } else {
+            setSavedJobs([])
+          }
         }
       }
     } catch (error) {
