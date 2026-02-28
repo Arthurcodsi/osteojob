@@ -38,16 +38,18 @@ export default function SaveJobButton({ jobId }: { jobId: string }) {
     }
 
     if (saved) {
-      await supabase
+      const { error } = await supabase
         .from('saved_jobs')
         .delete()
         .eq('candidate_id', userId)
         .eq('job_id', jobId)
+      if (error) { console.error('unsave error:', error); return }
       setSaved(false)
     } else {
-      await supabase
+      const { error } = await supabase
         .from('saved_jobs')
         .insert({ candidate_id: userId, job_id: jobId })
+      if (error) { console.error('save error:', error); return }
       setSaved(true)
     }
   }
