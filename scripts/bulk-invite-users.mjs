@@ -246,7 +246,7 @@ async function main() {
   console.log(`Found ${employers.length} employers and ${candidates.length} candidates`)
 
   await processGroup(employers, 'employers')
-  // await processGroup(candidates, 'candidates')
+  await processGroup(candidates, 'candidates')
 
   console.log('\n' + '='.repeat(60))
   console.log('📈 Summary')

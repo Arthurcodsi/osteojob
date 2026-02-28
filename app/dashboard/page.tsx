@@ -12,6 +12,8 @@ export default function DashboardPage() {
   const [profile, setProfile] = useState<Profile | null>(null)
   const [jobs, setJobs] = useState<Job[]>([])
   const [applications, setApplications] = useState<Application[]>([])
+  const [employerApplications, setEmployerApplications] = useState<Application[]>([])
+  const [showApplications, setShowApplications] = useState(false)
 
   useEffect(() => {
     checkUser()
@@ -48,6 +50,17 @@ export default function DashboardPage() {
             .order('posted_date', { ascending: false })
 
           setJobs(jobsData || [])
+
+          // Fetch all applications for this employer's jobs
+          if (jobsData && jobsData.length > 0) {
+            const jobIds = jobsData.map((j) => j.id)
+            const { data: empApps } = await supabase
+              .from('applications')
+              .select('*, job:jobs(*)')
+              .in('job_id', jobIds)
+              .order('applied_at', { ascending: false })
+            setEmployerApplications(empApps || [])
+          }
         } else {
           // Fetch candidate's applications
           const { data: appsData } = await supabase
@@ -154,12 +167,20 @@ export default function DashboardPage() {
                 <div className="text-gray-800">Active Jobs</div>
               </div>
 
-              <div className="bg-white p-6 rounded-[25px] shadow-sm text-center">
+              <button
+                onClick={() => setShowApplications((v) => !v)}
+                className="bg-white p-6 rounded-[25px] shadow-sm text-center border-2 border-transparent hover:border-[#4b8ec2] hover:shadow-md active:scale-95 transition-all cursor-pointer w-full group"
+              >
                 <div className="text-3xl font-bold text-[#32487A] mb-2">
                   {jobs.reduce((sum, job) => sum + job.application_count, 0)}
                 </div>
-                <div className="text-gray-800">Total Applications</div>
-              </div>
+                <div className="text-gray-800 flex items-center justify-center gap-1">
+                  Total Applications
+                  <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-[#dce8f5] text-[#32487A] text-xs font-bold group-hover:bg-[#4b8ec2] group-hover:text-white transition-colors">
+                    {showApplications ? '▲' : '▼'}
+                  </span>
+                </div>
+              </button>
             </div>
 
             {/* Your Jobs */}
@@ -215,6 +236,73 @@ export default function DashboardPage() {
                 </div>
               )}
             </div>
+
+            {/* All Applications Panel */}
+            {showApplications && (
+              <div className="bg-white rounded-[25px] shadow-sm p-6 mt-6">
+                <h2 className="text-2xl font-bold mb-4 text-gray-900">All Applications</h2>
+
+                {employerApplications.length > 0 ? (
+                  <div className="space-y-4">
+                    {employerApplications.map((app) => (
+                      <div key={app.id} className="border-2 border-gray-200 rounded-lg p-4">
+                        <div className="flex justify-between items-start flex-wrap gap-3">
+                          <div className="flex-1 min-w-0">
+                            <div className="font-semibold text-gray-900">{app.applicant_name}</div>
+                            <div className="text-sm text-gray-700 mt-0.5">
+                              <a href={`mailto:${app.applicant_email}`} className="hover:underline text-[#32487A]">
+                                {app.applicant_email}
+                              </a>
+                              {app.applicant_phone && (
+                                <span className="ml-3 text-gray-600">{app.applicant_phone}</span>
+                              )}
+                            </div>
+                            <div className="text-sm text-gray-500 mt-1">
+                              For: <span className="font-medium text-gray-700">{app.job?.title}</span>
+                            </div>
+                            {app.cover_letter && (
+                              <p className="text-sm text-gray-700 mt-2 line-clamp-2">{app.cover_letter}</p>
+                            )}
+                            <div className="text-xs text-gray-400 mt-1">
+                              Applied {new Date(app.applied_at).toLocaleDateString()}
+                            </div>
+                          </div>
+                          <div className="flex flex-col items-end gap-2">
+                            <span
+                              className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                                app.status === 'pending'
+                                  ? 'bg-yellow-100 text-yellow-700'
+                                  : app.status === 'shortlisted'
+                                  ? 'bg-green-100 text-green-700'
+                                  : app.status === 'reviewed'
+                                  ? 'bg-[#dce8f5] text-[#32487A]'
+                                  : 'bg-gray-100 text-gray-800'
+                              }`}
+                            >
+                              {app.status}
+                            </span>
+                            {app.cv_url && (
+                              <a
+                                href={app.cv_url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-sm font-semibold text-[#32487A] border-2 border-[#32487A] px-3 py-1 rounded-lg hover:bg-[#dce8f5] transition"
+                              >
+                                View CV
+                              </a>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-10 text-gray-500">
+                    No applications yet.
+                  </div>
+                )}
+              </div>
+            )}
           </>
         )}
 
