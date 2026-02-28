@@ -12,17 +12,32 @@ export default function ContactPage() {
   })
   const [submitting, setSubmitting] = useState(false)
   const [success, setSuccess] = useState(false)
+  const [error, setError] = useState('')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setSubmitting(true)
-    
-    // Simulate form submission
-    setTimeout(() => {
+    setError('')
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      })
+
+      if (!res.ok) {
+        const data = await res.json()
+        throw new Error(data.error || 'Something went wrong')
+      }
+
       setSuccess(true)
-      setSubmitting(false)
       setFormData({ name: '', email: '', subject: '', message: '' })
-    }, 1000)
+    } catch (err: any) {
+      setError(err.message || 'Failed to send message. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -128,6 +143,12 @@ export default function ContactPage() {
                 <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
                   <p className="text-green-700 font-semibold">✓ Message sent successfully!</p>
                   <p className="text-green-600 text-sm">We'll get back to you within 24 hours.</p>
+                </div>
+              )}
+
+              {error && (
+                <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+                  <p className="text-red-700 font-semibold">✗ {error}</p>
                 </div>
               )}
 
