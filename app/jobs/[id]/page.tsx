@@ -1,6 +1,7 @@
 ﻿import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
+import SaveJobButton from '@/app/components/SaveJobButton'
 
 export default async function JobDetailPage({
   params,
@@ -94,9 +95,7 @@ export default async function JobDetailPage({
             >
               Apply Now
             </Link>
-            <button className="ml-4 px-6 py-3 border-2 border-gray-300 rounded-lg font-semibold hover:border-[#4b8ec2] hover:text-[#32487A] transition">
-              Save Job
-            </button>
+            <SaveJobButton jobId={job.id} />
           </div>
         </div>
 

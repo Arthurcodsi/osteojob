@@ -4,7 +4,7 @@ import { useEffect, useState, Suspense } from 'react'
 import { supabase } from '@/lib/supabase'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import type { Profile, Job, Application } from '@/lib/supabase'
+import type { Profile, Job, Application, SavedJob } from '@/lib/supabase'
 
 function SuccessBanner() {
   const searchParams = useSearchParams()
@@ -24,6 +24,7 @@ export default function DashboardPage() {
   const [profile, setProfile] = useState<Profile | null>(null)
   const [jobs, setJobs] = useState<Job[]>([])
   const [applications, setApplications] = useState<Application[]>([])
+  const [savedJobs, setSavedJobs] = useState<SavedJob[]>([])
   const [employerApplications, setEmployerApplications] = useState<Application[]>([])
   const [showApplications, setShowApplications] = useState(false)
 
@@ -82,6 +83,15 @@ export default function DashboardPage() {
             .order('applied_at', { ascending: false })
 
           setApplications(appsData || [])
+
+          // Fetch saved jobs
+          const { data: savedData } = await supabase
+            .from('saved_jobs')
+            .select('*, job:jobs(*)')
+            .eq('candidate_id', user.id)
+            .order('created_at', { ascending: false })
+
+          setSavedJobs(savedData || [])
         }
       }
     } catch (error) {
@@ -401,6 +411,55 @@ export default function DashboardPage() {
                 <div className="text-center py-12 text-gray-700">
                   <div className="text-6xl mb-4">📋</div>
                   <p className="mb-4">You haven't applied to any jobs yet</p>
+                  <Link
+                    href="/jobs"
+                    className="inline-block bg-[#32487A] text-white px-6 py-3 rounded-full font-semibold hover:bg-[#4b8ec2]"
+                  >
+                    Browse Jobs
+                  </Link>
+                </div>
+              )}
+            </div>
+
+            {/* Saved Jobs */}
+            <div className="bg-white rounded-[25px] shadow-sm p-6 mt-6">
+              <h2 className="text-2xl font-bold mb-4 text-gray-900">Saved Jobs</h2>
+
+              {savedJobs.length > 0 ? (
+                <div className="space-y-4">
+                  {savedJobs.map((saved) => (
+                    <div key={saved.id} className="border-2 border-gray-200 rounded-lg p-4 flex justify-between items-start gap-4">
+                      <div>
+                        <h3 className="text-lg font-semibold text-gray-900">{saved.job?.title}</h3>
+                        <p className="text-gray-800 text-sm">
+                          {saved.job?.location_city ? `${saved.job.location_city}, ` : ''}{saved.job?.location_country}
+                          {saved.job?.job_type && <span className="ml-2 text-gray-500">• {saved.job.job_type}</span>}
+                        </p>
+                        {saved.job?.salary_range && (
+                          <p className="text-sm text-green-600 mt-1">{saved.job.salary_range}</p>
+                        )}
+                      </div>
+                      <div className="flex gap-2 flex-shrink-0">
+                        <Link
+                          href={`/jobs/${saved.job_id}`}
+                          className="px-4 py-2 bg-[#32487A] text-white rounded-lg text-sm font-semibold hover:bg-[#4b8ec2] transition"
+                        >
+                          View
+                        </Link>
+                        <Link
+                          href={`/jobs/${saved.job_id}/apply`}
+                          className="px-4 py-2 border-2 border-[#32487A] text-[#32487A] rounded-lg text-sm font-semibold hover:bg-[#dce8f5] transition"
+                        >
+                          Apply
+                        </Link>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-12 text-gray-700">
+                  <div className="text-6xl mb-4">★</div>
+                  <p className="mb-4">You haven't saved any jobs yet</p>
                   <Link
                     href="/jobs"
                     className="inline-block bg-[#32487A] text-white px-6 py-3 rounded-full font-semibold hover:bg-[#4b8ec2]"

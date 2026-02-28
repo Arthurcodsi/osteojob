@@ -53,6 +53,14 @@ export type Job = {
   employer?: Profile
 }
 
+export type SavedJob = {
+  id: string
+  candidate_id: string
+  job_id: string
+  created_at: string
+  job?: Job
+}
+
 export type Application = {
   id: string
   job_id: string
