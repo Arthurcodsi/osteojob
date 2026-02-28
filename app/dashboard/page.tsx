@@ -1,15 +1,25 @@
 ﻿'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react'
 import { supabase } from '@/lib/supabase'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import type { Profile, Job, Application } from '@/lib/supabase'
 
-export default function DashboardPage() {
-  const router = useRouter()
+function SuccessBanner() {
   const searchParams = useSearchParams()
   const successParam = searchParams.get('success')
+  if (!successParam) return null
+  return (
+    <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-[15px] text-green-700 font-semibold">
+      {successParam === 'job_posted' && '✓ Your job has been posted successfully!'}
+      {successParam === 'job_updated' && '✓ Your job has been updated successfully!'}
+    </div>
+  )
+}
+
+export default function DashboardPage() {
+  const router = useRouter()
   const [loading, setLoading] = useState(true)
   const [profile, setProfile] = useState<Profile | null>(null)
   const [jobs, setJobs] = useState<Job[]>([])
@@ -150,12 +160,9 @@ export default function DashboardPage() {
         </div>
 
         {/* Success banner */}
-        {successParam && (
-          <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-[15px] text-green-700 font-semibold">
-            {successParam === 'job_posted' && '✓ Your job has been posted successfully!'}
-            {successParam === 'job_updated' && '✓ Your job has been updated successfully!'}
-          </div>
-        )}
+        <Suspense fallback={null}>
+          <SuccessBanner />
+        </Suspense>
 
         {/* Employer Dashboard */}
         {profile.user_type === 'employer' && (
