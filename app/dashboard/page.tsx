@@ -2,12 +2,14 @@
 
 import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabase'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import type { Profile, Job, Application } from '@/lib/supabase'
 
 export default function DashboardPage() {
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const successParam = searchParams.get('success')
   const [loading, setLoading] = useState(true)
   const [profile, setProfile] = useState<Profile | null>(null)
   const [jobs, setJobs] = useState<Job[]>([])
@@ -147,6 +149,14 @@ export default function DashboardPage() {
           </div>
         </div>
 
+        {/* Success banner */}
+        {successParam && (
+          <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-[15px] text-green-700 font-semibold">
+            {successParam === 'job_posted' && '✓ Your job has been posted successfully!'}
+            {successParam === 'job_updated' && '✓ Your job has been updated successfully!'}
+          </div>
+        )}
+
         {/* Employer Dashboard */}
         {profile.user_type === 'employer' && (
           <>
@@ -211,6 +221,12 @@ export default function DashboardPage() {
                             className="px-4 py-2 border-2 border-gray-300 rounded-lg text-sm font-semibold hover:border-[#4b8ec2]"
                           >
                             View
+                          </Link>
+                          <Link
+                            href={`/jobs/${job.id}/edit`}
+                            className="px-4 py-2 border-2 border-[#4b8ec2] text-[#32487A] rounded-lg text-sm font-semibold hover:bg-[#dce8f5] transition"
+                          >
+                            Edit
                           </Link>
                           <button
                             onClick={() => handleDeleteJob(job.id)}
