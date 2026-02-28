@@ -1,3 +1,5 @@
+export const revalidate = 0
+
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 import { League_Spartan, Jost } from 'next/font/google'
