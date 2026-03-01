@@ -134,6 +134,21 @@ export default function PostJobPage() {
 
       if (insertError) throw insertError
 
+      // Notify admin that a new job was posted (fire-and-forget)
+      fetch('/api/notify-job-posted', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: formData.get('title') as string,
+          jobType: formData.get('jobType') as string,
+          city: formData.get('city') as string,
+          country: formData.get('country') as string,
+          salary: formData.get('salary') as string,
+          employerName: profile?.company_name || '',
+          employerEmail: user?.email || '',
+        }),
+      }).catch(() => {/* non-critical, ignore errors */})
+
       router.push('/dashboard?success=job_posted')
       
     } catch (err: any) {
