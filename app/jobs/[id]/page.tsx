@@ -59,7 +59,7 @@ export default async function JobDetailPage({
             </div>
 
             <div className="flex-1">
-              <h1 className="text-3xl font-bold mb-2">{job.title}</h1>
+              <h1 className="text-3xl font-bold mb-2 text-[#2d436f]">{job.title}</h1>
               <p className="text-xl text-gray-800 mb-4">
                 {job.employer?.company_name || 'Company'}
               </p>

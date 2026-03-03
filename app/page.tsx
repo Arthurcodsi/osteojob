@@ -122,7 +122,7 @@ export default async function Home() {
                 <span className="inline-block px-4 py-1 text-xs font-semibold rounded-full mb-3" style={{ background: '#F5F7FC', color: '#32487A' }}>
                   {job.job_type}
                 </span>
-                <h3 className={`${spartan.className} font-semibold mb-1 transition line-clamp-2 text-gray-900`} style={{ color: '#2d436f' }}>
+                <h3 className={`${spartan.className} font-semibold mb-1 transition line-clamp-2 text-[#2d436f]`}>
                   {job.title}
                 </h3>
                 <p className="text-sm text-gray-500 mb-3">
