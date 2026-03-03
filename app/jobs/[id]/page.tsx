@@ -99,7 +99,7 @@ export default async function JobDetailPage({
 
         {/* Job Description */}
         <div className="bg-white rounded-[25px] shadow-sm p-8 mb-6">
-          <h2 className="text-2xl font-bold mb-4">Job Description</h2>
+          <h2 className="text-2xl font-bold mb-4 text-[#2d436f]">Job Description</h2>
           <div className="prose max-w-none text-gray-800 whitespace-pre-wrap">
             {job.description}
           </div>
@@ -107,7 +107,7 @@ export default async function JobDetailPage({
 
         {/* Job Details Sidebar */}
         <div className="bg-white rounded-[25px] shadow-sm p-8">
-          <h2 className="text-2xl font-bold mb-4">Job Details</h2>
+          <h2 className="text-2xl font-bold mb-4 text-[#2d436f]">Job Details</h2>
           
           <div className="space-y-4">
             <div className="flex justify-between py-3 border-b">
@@ -158,13 +158,13 @@ export default async function JobDetailPage({
         {/* Company Info */}
         {job.employer && (
           <div className="bg-white rounded-[25px] shadow-sm p-8 mt-6">
-            <h2 className="text-2xl font-bold mb-4">About the Company</h2>
+            <h2 className="text-2xl font-bold mb-4 text-[#2d436f]">About the Company</h2>
             <div className="flex items-start gap-4">
               <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center font-bold text-[#32487A] text-xl flex-shrink-0">
                 {job.employer.company_name?.substring(0, 2).toUpperCase() || 'CO'}
               </div>
               <div>
-                <h3 className="text-xl font-semibold mb-2">
+                <h3 className="text-xl font-semibold mb-2 text-[#2d436f]">
                   {job.employer.company_name || 'Company'}
                 </h3>
                 {job.employer.company_description && (
@@ -180,7 +180,7 @@ export default async function JobDetailPage({
 
         {/* Similar Jobs */}
         <div className="mt-12">
-          <h2 className="text-2xl font-bold mb-6">Similar Jobs</h2>
+          <h2 className="text-2xl font-bold mb-6 text-[#2d436f]">Similar Jobs</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* We'll fetch similar jobs later */}
             <div className="bg-white rounded-[25px] shadow-sm p-6 text-center text-gray-600">
