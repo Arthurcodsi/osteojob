@@ -115,8 +115,8 @@ export default function PostJobPage() {
         imageUrl = await fetchCityImage(city, country)
       }
 
-      // Insert job
-      const { error: insertError } = await supabase
+      // Insert job as pending (will be auto-approved or reviewed by admin)
+      const { data: insertData, error: insertError } = await supabase
         .from('jobs')
         .insert({
           employer_id: user.id,
@@ -131,15 +131,19 @@ export default function PostJobPage() {
           status: 'active',
           posted_date: new Date().toISOString(),
         })
+        .select('id')
+        .single()
 
       if (insertError) throw insertError
 
-      // Notify admin that a new job was posted (fire-and-forget)
+      // Notify admin and run auto-moderation (fire-and-forget)
       fetch('/api/notify-job-posted', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          jobId: insertData?.id || '',
           title: formData.get('title') as string,
+          description: formData.get('description') as string,
           jobType: formData.get('jobType') as string,
           city: formData.get('city') as string,
           country: formData.get('country') as string,
@@ -149,7 +153,7 @@ export default function PostJobPage() {
         }),
       }).catch(() => {/* non-critical, ignore errors */})
 
-      router.push('/dashboard?success=job_posted')
+      router.push('/dashboard?success=job_pending')
       
     } catch (err: any) {
       setError(err.message || 'Failed to post job')

@@ -42,7 +42,7 @@ export type Job = {
   location_city: string | null
   location_address: string | null
   salary_range: string | null
-  status: 'active' | 'closed' | 'draft'
+  status: 'active' | 'closed' | 'draft' | 'pending' | 'rejected'
   featured: boolean
   view_count: number
   application_count: number

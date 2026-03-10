@@ -13,6 +13,7 @@ function SuccessBanner() {
   return (
     <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-[15px] text-green-700 font-semibold">
       {successParam === 'job_posted' && '✓ Your job has been posted successfully!'}
+      {successParam === 'job_pending' && '✓ Your job has been submitted and is under review. It will go live once approved.'}
       {successParam === 'job_updated' && '✓ Your job has been updated successfully!'}
     </div>
   )
@@ -180,7 +181,7 @@ const [employerApplications, setEmployerApplications] = useState<Application[]>(
 
               <div className="bg-white p-6 rounded-[25px] shadow-sm text-center">
                 <div className="text-3xl font-bold text-[#32487A] mb-2">
-                  {jobs.length}
+                  {jobs.filter(j => j.status === 'active').length}
                 </div>
                 <div className="text-gray-800">Active Jobs</div>
               </div>
@@ -214,7 +215,19 @@ const [employerApplications, setEmployerApplications] = useState<Application[]>(
                     >
                       <div className="flex justify-between items-start">
                         <div>
-                          <h3 className="text-lg font-semibold text-gray-900">{job.title}</h3>
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <h3 className="text-lg font-semibold text-gray-900">{job.title}</h3>
+                            {job.status === 'draft' && (
+                              <span className="px-2 py-0.5 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-700">
+                                Under Review
+                              </span>
+                            )}
+                            {job.status === 'closed' && (
+                              <span className="px-2 py-0.5 rounded-full text-xs font-semibold bg-red-100 text-red-600">
+                                Rejected
+                              </span>
+                            )}
+                          </div>
                           <p className="text-gray-800">
                             {job.location_country} • {job.job_type}
                           </p>
