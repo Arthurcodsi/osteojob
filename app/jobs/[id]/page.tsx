@@ -1,6 +1,50 @@
-﻿import Link from 'next/link'
+﻿import type { Metadata } from 'next'
+import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>
+}): Promise<Metadata> {
+  const { id } = await params
+  const { data: job } = await supabase
+    .from('jobs')
+    .select('title, description, location_city, location_country, job_type, employer:profiles(company_name)')
+    .eq('id', id)
+    .single()
+
+  if (!job) return { title: 'Job Not Found' }
+
+  const employer = Array.isArray(job.employer) ? job.employer[0] : job.employer
+  const location = [job.location_city, job.location_country].filter(Boolean).join(', ')
+  const title = `${job.title}${employer?.company_name ? ` at ${employer.company_name}` : ''}${location ? ` — ${location}` : ''}`
+  const description = (job.description || '').slice(0, 160).replace(/\n/g, ' ')
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title: `${job.title} | OsteoJob`,
+      description,
+      url: `https://osteojob.com/jobs/${id}`,
+      type: 'article',
+    },
+  }
+}
+
+// Map job types to schema.org employmentType values
+function toEmploymentType(jobType: string): string {
+  const map: Record<string, string> = {
+    'Full Time': 'FULL_TIME',
+    'Part Time': 'PART_TIME',
+    'Locum': 'TEMPORARY',
+    'Contract': 'CONTRACTOR',
+    'Internship': 'INTERN',
+  }
+  return map[jobType] || 'OTHER'
+}
 
 export default async function JobDetailPage({
   params,
@@ -29,8 +73,45 @@ export default async function JobDetailPage({
   // Increment view count (fire and forget)
   supabase.rpc('increment_job_views', { job_uuid: id })
 
+  const employer = Array.isArray(job.employer) ? job.employer[0] : job.employer
+  const location = [job.location_city, job.location_country].filter(Boolean).join(', ')
+
+  const jsonLd = {
+    '@context': 'https://schema.org/',
+    '@type': 'JobPosting',
+    title: job.title,
+    description: job.description,
+    datePosted: job.posted_date,
+    ...(job.expiry_date && { validThrough: job.expiry_date }),
+    employmentType: toEmploymentType(job.job_type),
+    hiringOrganization: {
+      '@type': 'Organization',
+      name: employer?.company_name || 'OsteoJob',
+      sameAs: 'https://osteojob.com',
+    },
+    jobLocation: {
+      '@type': 'Place',
+      address: {
+        '@type': 'PostalAddress',
+        ...(job.location_city && { addressLocality: job.location_city }),
+        addressCountry: job.location_country,
+      },
+    },
+    ...(job.salary_range && {
+      baseSalary: {
+        '@type': 'MonetaryAmount',
+        currency: 'GBP',
+        value: { '@type': 'QuantitativeValue', value: job.salary_range },
+      },
+    }),
+  }
+
   return (
     <div className="min-h-screen bg-[#f0f6ff] py-12 px-4">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="max-w-4xl mx-auto">
         {/* Back button */}
         <Link

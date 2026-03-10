@@ -1,4 +1,10 @@
-﻿import Link from 'next/link'
+﻿import type { Metadata } from 'next'
+import Link from 'next/link'
+
+export const metadata: Metadata = {
+  title: 'About OsteoJob',
+  description: 'OsteoJob is the dedicated job board for osteopaths and osteopathic clinics. Learn about our mission to connect practitioners with the right opportunities worldwide.',
+}
 
 export default function AboutPage() {
   return (

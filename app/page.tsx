@@ -1,6 +1,17 @@
 export const revalidate = 0
 
+import type { Metadata } from 'next'
 import Link from 'next/link'
+
+export const metadata: Metadata = {
+  title: 'Osteopath Jobs Worldwide — Find Your Next Role',
+  description: 'Browse hundreds of osteopath jobs worldwide. Full time, part time, locum and associate positions at clinics and practices across the UK, Europe, Australia and beyond.',
+  openGraph: {
+    title: 'OsteoJob — Osteopath Jobs Worldwide',
+    description: 'The job board built for osteopaths. Find your next role or hire qualified practitioners.',
+    url: 'https://osteojob.com',
+  },
+}
 import { supabase } from '@/lib/supabase'
 import { League_Spartan, Jost } from 'next/font/google'
 

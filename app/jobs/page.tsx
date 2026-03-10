@@ -1,5 +1,16 @@
-﻿import Link from 'next/link'
+﻿import type { Metadata } from 'next'
+import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
+
+export const metadata: Metadata = {
+  title: 'Browse Osteopath Jobs',
+  description: 'Search osteopath jobs by location, job type and specialty. Hundreds of positions at clinics and practices worldwide — full time, part time, locum and associate roles.',
+  openGraph: {
+    title: 'Browse Osteopath Jobs | OsteoJob',
+    description: 'Find osteopath jobs worldwide. Filter by country, job type and specialty.',
+    url: 'https://osteojob.com/jobs',
+  },
+}
 
 export default async function JobsPage({
   searchParams,

@@ -1,4 +1,10 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
+
+export const metadata: Metadata = {
+  title: 'Pricing — Post a Job',
+  description: 'Simple, transparent pricing to post osteopath jobs on OsteoJob. Reach qualified practitioners across the UK, Europe, Australia and worldwide.',
+}
 
 export default function PricingPage() {
   return (
